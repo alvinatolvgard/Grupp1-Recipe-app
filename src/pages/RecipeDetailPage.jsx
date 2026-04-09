@@ -2,8 +2,6 @@ import { useParams } from 'react-router-dom'
 
 function RecipeDetailPage() {
     const { id } = useParams()
-
-    console.log('Recept-ID från URL:', id)
     
     return (
         <div>
