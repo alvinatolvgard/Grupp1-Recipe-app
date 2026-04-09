@@ -16,4 +16,16 @@ function filterRecipes(recipes, activeFilters) {
         }
     }
 
-export default filterRecipes
+    /**
+     * Hanterar sökning av recept och sparar resultatet i storen
+     * @author Alvina
+     * @param {string} searchTerm - det användaren skrivit i sökfältet
+     * @param {function} setSearchTerm - sparar söktermen i Zustand-storen
+     * @param {function} setSearchResults - sparar sökresultaten i Zustand-storen
+     */
+
+async function handleSearch(searchTerm, setSearchTerm, setSearchResults) {
+        setSearchTerm(searchTerm);
+    }
+
+export { filterRecipes, handleSearch }
