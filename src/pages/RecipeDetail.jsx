@@ -1,1 +1,0 @@
-// Detaljsida för ett recept
