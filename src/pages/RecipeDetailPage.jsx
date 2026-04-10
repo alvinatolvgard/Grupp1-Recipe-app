@@ -1,11 +1,17 @@
 import { useParams } from 'react-router-dom'
+import { useRecipeById } from '../api/mealdb'
 
 function RecipeDetailPage() {
     const { id } = useParams()
+    const { recipe, loading, error } = useRecipeById(id);
+
+    if (loading) return <div>Loading...</div>
+    if (error) return <div>Something went wrong: {error}</div>
+    if (!recipe) return <div>Recipe not found</div>
     
     return (
         <div>
-            <h1>Recipe Detail Page</h1>
+            <h1>{recipe.strMeal}</h1>
         </div>
     )
 }
