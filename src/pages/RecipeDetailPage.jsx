@@ -15,7 +15,12 @@ function RecipeDetailPage() {
     
     return (
         <div>
-            <h1>{recipe.strMeal}</h1>
+            <section className='hero'>
+                <div className='hero-info'>
+                    <span>{recipe.strCategory}</span>
+                    <h1>{recipe.strMeal}</h1>
+                </div>
+            </section>
         </div>
     )
 }
