@@ -1,6 +1,10 @@
 import { useParams } from 'react-router-dom'
 import { useRecipeById } from '../api/mealdb'
 
+/**
+ * Sida för att visa detaljerad information om ett enskilt recept
+ * @author Maryam
+ */
 function RecipeDetailPage() {
     const { id } = useParams()
     const { recipe, loading, error } = useRecipeById(id);
