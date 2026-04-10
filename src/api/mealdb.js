@@ -2,7 +2,6 @@
 // (eller annat API om vi väljer något annat, ändra isåfall filnamn)
 // Använder vi ett till API, gör en ny fil med API:ets namn 
 
-import { response } from "express";
 import { useEffect, useState } from "react";
 
 const API_BASE = "https://www.themealdb.com/api/json/v1/1";
