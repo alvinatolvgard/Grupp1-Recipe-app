@@ -1,3 +1,4 @@
+import './App.css'
 import './css/App.css'
 import RecipeCard from './components/RecipeCard/RecipeCard'; // Sanel receptkort
 
