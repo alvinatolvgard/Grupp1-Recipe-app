@@ -13,7 +13,33 @@ function filterRecipes(recipes, activeFilters) {
         return recipes;
     } else {
         return recipes.filter((recipe) => recipe.strCategory === activeFilters)
-        }
     }
+}
 
-export default filterRecipes
+/**
+ * Hanterar sökning av recept och sparar resultatet i storen
+ * @author Alvina
+ * @param {string} searchTerm - det användaren skrivit i sökfältet
+ * @param {function} setSearchTerm - sparar söktermen i Zustand-storen
+ * @param {function} setSearchResults - sparar sökresultaten i Zustand-storen
+ * @param {function} searchRecipes - anropar API:t och retunerar matchande recept
+ * @param {function} setError - uppdaterar felmeddelandet i komponenten
+ */
+
+async function handleSearch(searchTerm, setSearchTerm, setSearchResults, searchRecipes, setError) {
+    // Ser till att man inte kan söka på ingenting
+    if (!searchTerm.trim()) return;
+    try {
+        // Sparar söktermen i storen
+        setSearchTerm(searchTerm);
+        // Anropar API:et med söktermen och inväntar resultat
+        const results = await searchRecipes(searchTerm);
+        // Sparar resultatet i storen
+        setSearchResults(results);
+    } catch (err) {
+        // Visar felmeddelande om något går fel
+        setError("Something went wrong. Try again!")
+    }
+}
+
+export { filterRecipes, handleSearch }

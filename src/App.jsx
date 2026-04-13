@@ -1,5 +1,6 @@
 import './App.css'
 import RecipeCard from './components/RecipeCard/RecipeCard'; // Sanel receptkort
+import SearchBar from './components/SearchBar'; // Alvina SeachBar
 
 function App() {
 
@@ -30,7 +31,9 @@ function App() {
 
   return (
     <div style={{ padding: '40px', backgroundColor: '#F9F5F2', minHeight: '100vh' }}>
-      <h1>Alla recept</h1>
+      <h1 style={{ fontFamily: 'Georgia, serif', marginBottom: '10px' }}>Alla recept</h1>
+
+      <SearchBar />
 
       <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
         {recipes.map((r) => (
