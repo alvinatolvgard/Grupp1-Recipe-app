@@ -23,6 +23,11 @@ function RecipeDetailPage() {
         return {ingredient, measure};
     }).filter(item => item.ingredient && item.ingredient.trim() !== '');
     
+    // Delar upp instruktionerna i separata steg och filtrerar bort tomma rader
+    const instructions = recipe.strInstructions
+        .split('\r\n')
+        .filter(step => step.trim() !== '');
+
     return (
         <div>
             {/* Hero-sektion med bild och grundläggande receptinfo */}
@@ -66,9 +71,20 @@ function RecipeDetailPage() {
 
             {/* Ingrediens-lista */}
             <section className='ingredient-list'>
-                <ol>
+                <h2>Ingredients</h2>
+                <ul>
                     {ingredients.map((item, index) =>
                         <li key={index}>{item.measure} {item.ingredient}</li>
+                    )}
+                </ul>
+            </section>
+
+            {/* Instruktioner */}
+            <section className='instructions-list'>
+                <h2>Instructions</h2>
+                <ol>
+                    {instructions.map((step, index) => 
+                        <li key={index}>{step}</li>
                     )}
                 </ol>
             </section>
