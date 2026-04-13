@@ -14,6 +14,14 @@ function RecipeDetailPage() {
     if (loading) return <div>Loading...</div>
     if (error) return <div>Something went wrong: {error}</div>
     if (!recipe) return <div>Recipe not found</div>
+
+    // Skapar en lista med ingredienser och mängder från TheMealDB (max 20 st)
+    // Filtrerar bort tomma ingredienser
+    const ingredients = Array.from({ length: 20 }, (_, i) => {
+        const ingredient = recipe[`strIngredient${i + 1}`]
+        const measure = recipe[`strMeasure${i + 1}`]
+        return {ingredient, measure};
+    }).filter(item => item.ingredient && item.ingredient.trim() !== '');
     
     return (
         <div>
@@ -54,6 +62,15 @@ function RecipeDetailPage() {
                     </button>
                     <button onClick={() => window.print()}>Print</button>
                 </div>
+            </section>
+
+            {/* Ingrediens-lista */}
+            <section className='ingredient-list'>
+                <ol>
+                    {ingredients.map((item, index) =>
+                        <li key={index}>{item.measure} {item.ingredient}</li>
+                    )}
+                </ol>
             </section>
         </div>
     )
