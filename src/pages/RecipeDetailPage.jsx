@@ -30,16 +30,19 @@ function RecipeDetailPage() {
         .filter(step => step.trim() !== '');
 
     return (
-        <div>
+        <div className='recipe-detail-page'>
             {/* Hero-sektion med bild och grundläggande receptinfo */}
             <section className='hero'>
-                <img 
+                <div className='hero-img-wrapper'>
+                    <img 
                     src={recipe.strMealThumb} 
                     alt={recipe.strMeal} 
                 />
+                </div>
+                
                 {/* Kategori, receptnamn, info-kort och knappar*/}
                 <div className='hero-info'>
-                    <span>{recipe.strCategory}</span>
+                    <span className='category-badge'>{recipe.strCategory}</span>
                     <h1>{recipe.strMeal}</h1>
 
                     {/* Info-kort med ursprungsland, kategori och portioner */}
@@ -64,12 +67,12 @@ function RecipeDetailPage() {
 
                     {/* Save och Print-knappar */}
                     <div className='action-buttons'>
-                        <button onClick={() => isFavorite(recipe.idMeal)
+                        <button className='save-button' onClick={() => isFavorite(recipe.idMeal)
                             ? removeFavorite(recipe.idMeal)
                             : addFavorite(recipe)}>
                             {isFavorite(recipe.idMeal) ? 'Saved' : 'Save'}
                         </button>
-                        <button onClick={() => window.print()}>Print</button>
+                        <button className='print-button' onClick={() => window.print()}>Print</button>
                     </div>
                 </div>
             </section>
