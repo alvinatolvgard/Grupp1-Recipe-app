@@ -13,15 +13,14 @@ const RecipeCard = ({ recipe }) => {
     return (
         <article className="recipe-card">
             <div className="card-header">
-                <img src={recipe.image} alt={recipe.title} className="card-image" />
-                <span className="category-badge">{recipe.category}</span>
-                <button className="favorite-circle">{HeartIcon}
-                </button>
+                <img src={recipe.strMealThumb} alt={recipe.strMeal} className="card-image" />
+                <span className="category-badge">{recipe.strCategory}</span>
+                <button className="favorite-circle">{HeartIcon}</button>
             </div>
 
             <div className="card-body">
-                <h2>{recipe.title}</h2>
-                <p className="recipe-desc">{recipe.description}</p>
+                <h2>{recipe.strMeal}</h2>
+                <p className="recipe-desc">{recipe.strArea}</p>
 
                 <div className="rating-row">
                     <div className="stars-list">
