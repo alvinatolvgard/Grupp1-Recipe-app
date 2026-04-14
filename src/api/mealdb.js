@@ -28,10 +28,7 @@ export function useRecipeSearch() {
 
       const data = await response.json();
       setRecipes(data.meals || []); // null om inga resultat
-<<<<<<< feature/search-function
       return data.meals || [];
-=======
->>>>>>> main
     } catch (err) {
       setError(err.message);
     } finally {
