@@ -29,8 +29,6 @@ export function useRecipeSearch() {
       const data = await response.json();
       setRecipes(data.meals || []); // null om inga resultat
       return data.meals || [];
-
-
     } catch (err) {
       setError(err.message);
     } finally {

@@ -1,0 +1,137 @@
+/* src/index.css */
+
+/* Importerar typsnitt från Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@400;500;600;700;800&display=swap");
+
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Root-variabler */
+:root {
+  /* FÄRGER */
+  --color-primary: #c85a54; /* Orange accent */
+  --color-primary-dark: #d35400;
+  --color-secondary: #2c2825; /* Mörk/grå för rubriker */
+  --color-background: #faf8f5; /* Ljusbeige bakgrund */
+  --color-card: #e8dfd4; /* Varmvit för kortbakgrunder */
+  --color-text: #8b7e6e; /* Mörkbrun textfärg */
+  --color-border: #e8dfd4; /* För våra avskiljare */
+  --color-dark-accent: #7c6f5b; /* För mörkare detaljer */
+  --color-dark-accent-transparent: rgba(
+    124,
+    111,
+    91,
+    0.1
+  ); /* För subtila skuggor och bakgrunder */
+
+  /* === TYPSNITT === */
+  --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* TYPOGRAFI – Storlekar */
+  --text-hero: 3rem; /* Huvudrubrik */
+  --text-hero-mobile: 2rem;
+  --text-title: 1.5rem; /* Sekundära rubriker */
+  --text-body: 1rem; /* Brödtext */
+  --text-small: 0.875rem; /* Footer */
+  --text-caption: 0.75rem;
+
+  /*  RADHÖJDER  */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-loose: 1.6;
+
+  /*  AVSTÅND  */
+  --spacing-xs: 0.25rem; /* 4px */
+  --spacing-sm: 0.5rem; /* 8px */
+  --spacing-md: 1rem; /* 16px */
+  --spacing-lg: 1.5rem; /* 24px */
+  --spacing-xl: 2rem; /* 32px */
+  --spacing-2xl: 3rem; /* 48px */
+  --spacing-3xl: 4rem; /* 64px */
+
+  /*  RUNDADE HÖRN */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  /*  SKUGGOR  */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+
+  /*  LAYOUT  */
+  --container-max-width: 1200px;
+  --container-padding: var(--spacing-lg);
+}
+
+/*  GLOBALA STILAR  */
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: var(--line-height-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*  TYPSNITT FÖR RUBRIKER  */
+h1,
+h2,
+h3,
+.heading {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: var(--line-height-tight);
+  color: var(--color-secondary);
+}
+
+h1 {
+  font-size: var(--text-hero);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+/* LÄNKAR  */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/*  BILDER  */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/*  RESPONSIV  */
+@media (max-width: 768px) {
+  :root {
+    --text-hero: var(--text-hero-mobile);
+    --container-padding: var(--spacing-md);
+  }
+
+  h1 {
+    font-size: var(--text-hero-mobile);
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}
