@@ -6,6 +6,10 @@ import { useEffect, useState } from "react";
 
 const API_BASE = "https://www.themealdb.com/api/json/v1/1";
 
+/**
+ * Söker efter recept från TheMealDB baserat på sökterm
+ * @author Albrim
+ */
 export function useRecipeSearch() {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -23,7 +27,8 @@ export function useRecipeSearch() {
       }
 
       const data = await response.json();
-      setRecipes(data.meals || []); // null om inga resultat
+      setRecipes(data.meals || []);
+      return data.meals || [];
     } catch (err) {
       setError(err.message);
     } finally {
@@ -46,26 +51,66 @@ export function useRecipeById(id) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
+    const fetchRecipe = async () => {
+      setLoading(true);
+      setError(null);
 
-    fetch(`${API_BASE}/lookup.php?i=${id}`)
-      .then(response => {
+      try {
+        const response = await fetch(`${API_BASE}/lookup.php?i=${id}`);
+
         if (!response.ok) {
           throw new Error(`Something went wrong: ${response.status}`);
         }
-        return response.json();
-      })
-      .then(data => {
+
+        const data = await response.json();
         setRecipe(data.meals[0]);
-      })
-      .catch(err => {
+      } catch (err) {
         setError(err.message);
-      })
-      .finally(() => {
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchRecipe();
   }, [id]);
 
   return { recipe, loading, error };
+}
+
+/**
+ * Hämtar recept från TheMealDB baserat på kategori
+ * @author Maryam
+ * @param {string} category - receptets kategori, tex "Seafood"
+ * @returns {Object} recipes - lista med recept, loading-status och eventuellt felmeddelande
+ */
+export function useRecipesByCategory(category) {
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch(`${API_BASE}/filter.php?c=${category}`);
+
+        if (!response.ok) {
+          throw new Error(`Something went wrong: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setRecipes(data.meals);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecipes();
+  }, [category]);
+
+  return { recipes, loading, error };
 }
