@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useRecipeById } from '../api/mealdb';
+import { useRecipeById, useRecipesByCategory } from '../api/mealdb';
 import useFavoritesStore from '../stores/useFavoritesStore';
 
 /**
@@ -87,6 +87,12 @@ function RecipeDetailPage() {
                         <li key={index}>{step}</li>
                     )}
                 </ol>
+            </section>
+
+            {/* More Recipes-sektion */}
+            <section className='more-recipes'>
+                <h2>More {recipe.strCategory} Recipes</h2>
+                
             </section>
         </div>
     )
