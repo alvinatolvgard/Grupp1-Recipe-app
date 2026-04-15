@@ -66,6 +66,7 @@ function RecipeDetailPage() {
                                 <p>Medium</p>
                             </div>
                         </div>
+
                         {/* Save och Print-knappar */}
                         <div className='action-buttons'>
                             <button className='save-button' onClick={() => isFavorite(recipe.idMeal)
@@ -78,6 +79,7 @@ function RecipeDetailPage() {
                     </div>
                 </section>
                 <div className='recipe-content'>
+
                     {/* Ingrediens-lista */}
                     <section className='ingredient-list'>
                         <h2>Ingredients</h2>
@@ -87,6 +89,7 @@ function RecipeDetailPage() {
                             )}
                         </ul>
                     </section>
+
                     {/* Instruktioner */}
                     <section className='instructions-list'>
                         <h2>Instructions</h2>
@@ -98,6 +101,7 @@ function RecipeDetailPage() {
                     </section>
                 </div>
             </div>
+
             {/* More Recipes-sektion */}
             <section className='more-recipes'>
                 <div className='more-recipes-content'>
