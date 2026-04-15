@@ -77,25 +77,27 @@ function RecipeDetailPage() {
                 </div>
             </section>
 
-            {/* Ingrediens-lista */}
-            <section className='ingredient-list'>
-                <h2>Ingredients</h2>
-                <ul>
-                    {ingredients.map((item, index) =>
-                        <li key={index}>{item.measure} {item.ingredient}</li>
-                    )}
-                </ul>
-            </section>
+            <div className='recipe-content'>
+                {/* Ingrediens-lista */}
+                <section className='ingredient-list'>
+                    <h2>Ingredients</h2>
+                    <ul>
+                        {ingredients.map((item, index) =>
+                            <li key={index}>{item.measure} {item.ingredient}</li>
+                        )}
+                    </ul>
+                </section>
 
-            {/* Instruktioner */}
-            <section className='instructions-list'>
-                <h2>Instructions</h2>
-                <ol>
-                    {instructions.map((step, index) => 
-                        <li key={index}>{step}</li>
-                    )}
-                </ol>
-            </section>
+                {/* Instruktioner */}
+                <section className='instructions-list'>
+                    <h2>Instructions</h2>
+                    <ol>
+                        {instructions.map((step, index) => 
+                            <li key={index}>{step}</li>
+                        )}
+                    </ol>
+                </section>
+            </div>
 
             {/* More Recipes-sektion */}
             <section className='more-recipes'>
