@@ -114,3 +114,41 @@ export function useRecipesByCategory(category) {
 
   return { recipes, loading, error };
 }
+
+/**
+ * Hämtar ett slumpmässigt recept från TheMealDB
+ * @author Alvina
+ * @returns {object} recipe - receptobjektet, loading-status och eventuellt felmeddelande
+ */
+
+export function useRandomRecipe() {
+  const [recipe, setRecipe] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchRecipe = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch(`${API_BASE}/random.php`);
+
+        if (!response.ok) {
+          throw new Error(`Something went wrong: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setRecipe(data.meals[0]);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecipe();
+  }, []);
+
+  return { recipe, loading, error };
+}

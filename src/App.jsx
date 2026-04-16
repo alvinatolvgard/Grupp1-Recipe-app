@@ -1,14 +1,12 @@
 import './App.css'
-<<<<<<< feature/search-function
-import SearchBar from './components/SearchBar'
-=======
->>>>>>> main
+import LandingPage from './pages/LandingPage'
+
 
 function App() {
 
   return (
     <>
-      <SearchBar />
+      <LandingPage />
     </>
   )
 }

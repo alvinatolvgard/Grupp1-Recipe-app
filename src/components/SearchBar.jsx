@@ -17,7 +17,7 @@ function SearchBar() {
     const { searchRecipes } = useRecipeSearch();
     
     return (
-        <div>
+        <>
             <div className="searchbar">
                 {/* Sökikon som triggar sökningen vid klick */}
                 <span className="material-symbols-outlined" onClick={() => handleSearch(searchInput, setSearchTerm, setSearchResults, searchRecipes, setError)}>search</span>
@@ -28,7 +28,7 @@ function SearchBar() {
                     onKeyDown={(e) => e.key === "Enter" && handleSearch(searchInput, setSearchTerm, setSearchResults, searchRecipes, setError)} />
             </div>
             {error && <p>{error}</p>}
-        </div>
+        </>
     )
 }
 
