@@ -17,13 +17,13 @@ const useFavoritesStore = create((set, get) => ({
     // Tar bort ett recept från favoritlistan
     removeFavorite: (recipeId) => {
         set((state) => ({
-            favorites: state.favorites.filter((recipe) => recipe.id !== recipeId)
+            favorites: state.favorites.filter((recipe) => recipe.idMeal !== recipeId)
         }))
     },
 
     // Returnerar true om receptet finns i favoritlistan, annars false
     isFavorite: (recipeId) => {
-        return get().favorites.some((recipe) => recipe.id === recipeId)
+        return get().favorites.some((recipe) => recipe.idMeal === recipeId)
     }
 }))
 
