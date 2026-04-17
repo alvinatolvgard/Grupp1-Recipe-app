@@ -32,6 +32,7 @@
     align-self: flex-start;
     color: var(--color-secondary);
     position: static;
+    box-shadow: none;
 }
 
 .hero-info {
@@ -65,7 +66,7 @@
 }
 
 .info-item p {
-    font-size: var(--text-body);
+    font-size: var(--text-title);
     font-weight: 500;
     margin-top: var(--spacing-xs);
     color: var(--color-secondary);
@@ -96,6 +97,18 @@
 .print-button {
     background-color: var(--color-dark-accent);
     color: var(--color-card);
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text);
+    font-size: var(--text-body);
+    margin-bottom: var(--spacing-lg);
 }
 
 .recipe-content {

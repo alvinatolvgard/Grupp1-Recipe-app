@@ -1,4 +1,5 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { useRecipeById, useRecipesByCategory } from '../api/mealdb';
 import useFavoritesStore from '../stores/useFavoritesStore';
 import RecipeCard from '../components/RecipeCard/RecipeCard';
@@ -13,6 +14,7 @@ function RecipeDetailPage() {
     const { recipe, loading, error } = useRecipeById(id);
     const { recipes } = useRecipesByCategory(recipe?.strCategory);
     const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore();
+    const navigate = useNavigate();
 
     if (loading) return <div>Loading...</div>
     if (error) return <div>Something went wrong: {error}</div>
@@ -34,6 +36,11 @@ function RecipeDetailPage() {
     return (
         <div>
             <div className='recipe-detail-page'>
+                {/* Tillbaka-knapp */}
+                <button className='back-button' onClick={() => navigate(-1)}>
+                    <ArrowLeft /> Back
+                </button>
+
                 {/* Hero-sektion med bild och grundläggande receptinfo */}
                 <section className='hero'>
                     <div className='hero-img-wrapper'>
