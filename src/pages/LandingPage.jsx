@@ -2,13 +2,16 @@ import { useRandomRecipe } from "../api/mealdb";
 import SearchBar from "../components/SearchBar";
 import useSearchStore from "../stores/useSearchStore";
 import RecipeCard from "../components/RecipeCard/RecipeCard";
+import { filterRecipes } from "../utilities/searchHelpers";
 import "./LandingPage.css";
+import { useState } from "react";
 
 function LandingPage() {
     const { recipe, loading, error } = useRandomRecipe();
     const searchResults = useSearchStore((state) => state.searchResults);
     const activeFilter = useSearchStore((state) => state.activeFilter);
-    const setActiveFilter = useSearchStore((state) => state.setActiveFilter)
+    const setActiveFilter = useSearchStore((state) => state.setActiveFilter);
+    const [hasSearched, setHasSearched] = useState(false);
 
     if (recipe) console.log(recipe);
 
@@ -22,6 +25,8 @@ function LandingPage() {
     if (!recipe) {
         return null;
     }
+
+    const filters = ["All", "Breakfast", "Dessert", "Vegetarian", "Vegan"];
 
     return (
         < >
@@ -47,11 +52,20 @@ function LandingPage() {
 
             {/* --Search-sektion-- */}
             <div className="search-function">
-                <SearchBar />
+                <SearchBar setHasSearched={setHasSearched} />
             </div>
 
             {/* --Recipecard-sektion-- */}
-            {searchResults.map((recipe) => (
+            {/* Skapar filtreringsknappar för All, Breakfast, Dessert, Vegetarian och Vegan */}
+            {filters.map((filter) => (
+                <button onClick={() => setActiveFilter(filter)} key={filter}>{filter}</button>
+            ))}
+            {/* Felmeddelande om det inte finns recept som matchar filtreringen */}
+            {hasSearched && filterRecipes(searchResults, activeFilter).length === 0 && (
+                    <p>No recipes found</p>
+                )}
+
+            {filterRecipes(searchResults, activeFilter).map((recipe) => (
                 <RecipeCard key={recipe.idMeal} recipe={recipe} />
             ))}
 
