@@ -60,7 +60,7 @@ export default function Header() {
           <form className="header__search-form">
             <input
               type="text"
-              placeholder="Search recipes..."
+              placeholder="Search by recipe name, ingredient, or tag..."
               className="header__search-input"
               autoFocus={searchOpen}
             />

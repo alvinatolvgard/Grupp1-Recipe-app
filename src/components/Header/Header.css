@@ -115,10 +115,17 @@
   background: white;
   outline: none;
   font-family: var(--font-body);
+  color: var(--color-text);
 }
 
 .header__search-input:focus {
   border-color: var(--color-dark-accent);
+}
+
+/* För placeholder-texten i sökfältet, så att den är tydlig och matchar designen. Borde vi ändra färg på den? */
+.header__search-input::placeholder {
+  color: var(--color-text);
+  opacity: 1; /* För att säkerställa att placeholder-texten är synlig i alla webbläsare */
 }
 
 .header__categories {
