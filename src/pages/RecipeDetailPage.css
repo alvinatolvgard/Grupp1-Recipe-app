@@ -69,6 +69,7 @@
     padding: var(--spacing-lg);
     background-color: var(--color-border);
     border-radius: var(--radius-sm);
+    min-width: 400px;
 }
 
 .info-item {
@@ -193,7 +194,7 @@
 .instructions-list {
     border: 2px solid var(--color-border);
     border-radius: var(--radius-md);
-    padding: var(--spacing-xl);
+    padding: var(--spacing-md) var(--spacing-xl) var(--spacing-xl) var(--spacing-xl);
 }
 
 .ingredient-list {
@@ -244,7 +245,7 @@
 
 /* MORE RECIPES */
 .more-recipes {
-    background-color: var(--color-card);
+    background-color: var(--color-border);
     padding: var(--spacing-xl);
     margin-top: var(--spacing-xl);
 }
