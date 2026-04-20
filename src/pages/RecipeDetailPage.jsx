@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Globe, Tag, Users, ChefHat } from 'lucide-react';
+import { ArrowLeft, Globe, Tag, Users, ChefHat, Share2, Check } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 import { useRecipeById, useRecipesByCategory } from '../api/mealdb';
 import useFavoritesStore from '../stores/useFavoritesStore';
 import RecipeCard from '../components/RecipeCard/RecipeCard';
@@ -15,7 +16,21 @@ function RecipeDetailPage() {
     const { recipe, loading, error } = useRecipeById(id);
     const { recipes } = useRecipesByCategory(recipe?.strCategory);
     const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore();
+    const [isShareOpen, setIsShareOpen] = useState(false);
+    const shareRef = useRef(null);
+    const [isCopied, setIsCopied] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (shareRef.current && !shareRef.current.contains(e.target)) {
+                setIsShareOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     if (loading) return <div>Loading...</div>
     if (error) return <div>Something went wrong: {error}</div>
@@ -74,17 +89,48 @@ function RecipeDetailPage() {
                                 <p>{getDifficulty(ingredients)}</p>
                             </div>
                         </div>
-                        {/* Save och Print-knappar */}
-                        <div className='action-buttons'>
-                            <button className='save-button' onClick={() => isFavorite(recipe.idMeal)
-                                ? removeFavorite(recipe.idMeal)
-                                : addFavorite(recipe)}>
-                                {isFavorite(recipe.idMeal) ? 'Saved' : 'Save'}
-                            </button>
-                            <button className='print-button' onClick={() => window.print()}>Print</button>
+
+                        {/* Save, Share och Print-knappar */}
+                        <div className='action-buttons-wrapper'>
+                            <div className='action-buttons'>
+                                <button className='save-button' onClick={() => isFavorite(recipe.idMeal)
+                                    ? removeFavorite(recipe.idMeal)
+                                    : addFavorite(recipe)}>
+                                    {isFavorite(recipe.idMeal) ? 'Saved' : 'Save'}
+                                </button>
+                                <div className='share-wrapper' ref={shareRef}>
+                                    <button 
+                                        className={`share-button ${isShareOpen ? 'share-button-active' : ''}`} 
+                                        onClick={() => setIsShareOpen(!isShareOpen)}>
+                                        <Share2 size={15}/> Share
+                                    </button>
+                                    {isShareOpen && (
+                                        <div className='share-dropdown'>
+                                            <button onClick={() => {
+                                                navigator.clipboard.writeText(window.location.href);
+                                                setIsCopied(true);
+                                                setTimeout(() => setIsCopied(false), 2000);
+                                            }}> Copy Link 
+                                                {isCopied && <Check size={13}/>}
+                                            </button>
+                                            <button onClick={() => window.open(`https://twitter.com/intent/tweet?url=${window.location.href}`, '_blank')}>
+                                                Share on Twitter
+                                            </button>
+                                            <button onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`, '_blank')}>
+                                                Share on Facebook
+                                            </button>
+                                            <button onClick={() => window.open(`https://pinterest.com/pin/create/button/?url=${window.location.href}`, '_blank')}>
+                                                Share on Pinterest
+                                            </button>
+                                        </div>
+                                        )}
+                                    </div>
+                                <button className='print-button' onClick={() => window.print()}>Print</button>
+                            </div>
                         </div>
                     </div>
                 </section>
+
                 <div className='recipe-content'>
                     {/* Ingrediens-lista */}
                     <section className='ingredient-list'>
@@ -95,6 +141,7 @@ function RecipeDetailPage() {
                             )}
                         </ul>
                     </section>
+
                     {/* Instruktioner */}
                     <section className='instructions-list'>
                         <h2>Instructions</h2>
@@ -106,6 +153,7 @@ function RecipeDetailPage() {
                     </section>
                 </div>
             </div>
+
             {/* More Recipes-sektion */}
             <section className='more-recipes'>
                 <div className='more-recipes-content'>

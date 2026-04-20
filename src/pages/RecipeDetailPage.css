@@ -51,7 +51,7 @@
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-xs);
     padding: var(--spacing-lg);
-    background-color: var(--color-card);
+    background-color: var(--color-border);
     border-radius: var(--radius-sm);
 }
 
@@ -75,6 +75,10 @@
     font-family: var(--font-heading);
 }
 
+.action-buttons-wrapper {
+    position: relative;
+}
+
 .action-buttons {
     display: flex;
     gap: var(--spacing-md);
@@ -91,7 +95,7 @@
 }
 
 .save-button {
-    background-color: transparent;
+    background-color: var(--color-background);
     color: var(--color-secondary);
     border: 2px solid var(--color-border) !important;
 }
@@ -99,6 +103,64 @@
 .print-button {
     background-color: var(--color-dark-accent);
     color: var(--color-card);
+}
+
+.share-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.share-button {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    justify-content: center;
+    width: 100%;
+    background-color: var(--color-background);
+    color: var(--color-secondary);
+    border: 2px solid var(--color-border) !important;
+}
+
+.share-button:hover {
+    background-color: var(--color-border);
+}
+
+.share-button-active {
+    background-color: var(--color-border);
+}
+
+.share-dropdown {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(100% + 0.5rem);
+    min-width: 180px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-background);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    z-index: 10;
+}
+
+.share-dropdown button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    background-color: var(--color-background);
+    border-radius: 0;
+    padding: var(--spacing-md) var(--spacing-lg);
+    text-align: center;
+    cursor: pointer;
+    color: var(--color-secondary);
+    font-size: var(--text-small);
+    width: 100%;
+}
+
+.share-dropdown button:hover {
+    background-color: var(--color-border) !important;
 }
 
 .back-button {
