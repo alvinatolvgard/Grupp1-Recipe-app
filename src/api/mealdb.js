@@ -23,7 +23,7 @@ export function useRecipeSearch() {
       const response = await fetch(`${API_BASE}/search.php?s=${encodeURIComponent(query)}`);
 
       if (!response.ok) {
-        throw new Error(`HTTP-fel: ${response.status}`);
+        throw new Error(`HTTP-error: ${response.status}`);
       }
 
       const data = await response.json();
@@ -63,7 +63,7 @@ export function useRecipeById(id) {
         }
 
         const data = await response.json();
-        setRecipe(data.meals[0]);
+        setRecipe(data.meals ? data.meals[0] : null);
       } catch (err) {
         setError(err.message);
       } finally {

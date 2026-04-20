@@ -1,7 +1,9 @@
 // Sanel receptkort
+import { useNavigate } from 'react-router-dom';
 import './RecipeCard.css';
 
 const RecipeCard = ({ recipe }) => {
+    const navigate = useNavigate();
 
     const StarIcon = <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>;
     const ClockIcon = <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>;
@@ -10,12 +12,18 @@ const RecipeCard = ({ recipe }) => {
 
     if (!recipe) return null;
 
+    const handleCardClick = () => {
+        navigate(`/recipe/${recipe.idMeal}`);
+    };
+
     return (
-        <article className="recipe-card">
+        <article className="recipe-card" onClick={handleCardClick} style={{ cursor: 'pointer' }}>
             <div className="card-header">
                 <img src={recipe.strMealThumb} alt={recipe.strMeal} className="card-image" />
                 <span className="category-badge">{recipe.strCategory}</span>
-                <button className="favorite-circle">{HeartIcon}</button>
+                <button className="favorite-circle" onClick={(e) => e.stopPropagation()}>
+                    {HeartIcon}
+                    </button>
             </div>
 
             <div className="card-body">
