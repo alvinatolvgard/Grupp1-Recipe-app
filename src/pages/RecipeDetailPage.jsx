@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Globe, Tag, Users, ChefHat, Share2, Check } from 'lucide-react';
+import { ArrowLeft, Globe, Tag, Users, ChefHat, Share2, Check, Loader2, Dice1 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { useRecipeById, useRecipesByCategory } from '../api/mealdb';
 import useFavoritesStore from '../stores/useFavoritesStore';
@@ -33,7 +33,11 @@ function RecipeDetailPage() {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    if (loading) return <div>Loading...</div>
+    if (loading) return (
+        <div className='loading'>
+            <Loader2 className='spinner' size={40}/>
+        </div>
+    )
     if (error) return <div>Something went wrong: {error}</div>
     if (!recipe) return (
         <div className='not-found'>

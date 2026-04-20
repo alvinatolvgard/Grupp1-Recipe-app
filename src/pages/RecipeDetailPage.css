@@ -289,3 +289,21 @@
 .not-found-button:hover {
     background-color: var(--color-border);
 }
+
+/* LOADING */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+    color: var(--color-dark-accent);
+}
