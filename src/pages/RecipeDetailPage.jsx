@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Globe, Tag, Users, ChefHat } from 'lucide-react';
 import { useRecipeById, useRecipesByCategory } from '../api/mealdb';
 import useFavoritesStore from '../stores/useFavoritesStore';
 import RecipeCard from '../components/RecipeCard/RecipeCard';
@@ -58,19 +58,19 @@ function RecipeDetailPage() {
                         {/* Info-kort med ursprungsland, kategori och portioner */}
                         <div className='info-card'>
                             <div className='info-item'>
-                                <span>Cuisine</span>
+                                <span><Globe size={15}/> Cuisine</span>
                                 <p>{recipe.strArea}</p>
                             </div>
                             <div className='info-item'>
-                                <span>Category</span>
+                                <span><Tag size={15}/> Category</span>
                                 <p>{recipe.strCategory}</p>
                             </div>
                             <div className='info-item'>
-                                <span>Servings</span>
+                                <span><Users size={15}/> Servings</span>
                                 <p>4</p>
                             </div>
                             <div className='info-item'>
-                                <span>Difficulty</span>
+                                <span><ChefHat size={15}/> Difficulty</span>
                                 <p>{getDifficulty(ingredients)}</p>
                             </div>
                         </div>
