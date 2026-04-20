@@ -1,0 +1,223 @@
+.header {
+  position: relative; /* För att kunna placera dropdown och overlay korrekt */
+  background: var(--color-surface, white);
+  z-index: 10;
+  border-bottom: 1px solid var(--color-border);
+  font-family: var(--font-body);
+}
+
+/* Behållaren som centrerar innehållet och ger padding */
+.header__container {
+  position: relative;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 1rem var(--spacing-3xl); /* Matchar footerns padding */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__logo {
+  font-family: var(--font-heading);
+  font-size: var(--text-title);
+  font-weight: 600;
+  color: var(--color-secondary);
+}
+
+/* Högersidan som innehåller navigering och sökikon */
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.header__nav {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Burger-knappen som visas på mobil */
+.header__burger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+}
+
+.header__nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header__search-icon {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius, 0.5rem);
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.header__search-icon:hover {
+  border-color: var(--color-dark-accent);
+}
+
+/* Dropdown för sökfältet, öppnas med searchOpen state */
+.header__search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: white;
+  transform: scaleY(0);
+  transform-origin: top center;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+  border-top: 1px solid var(--color-border);
+  border-bottom-left-radius: var(--radius, 1rem);
+  border-bottom-right-radius: var(--radius, 1rem);
+  overflow: hidden;
+  z-index: 20;
+}
+
+.header__search-dropdown--open {
+  transform: scaleY(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.header__search-dropdown-inner {
+  max-width: var(--container-max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem var(--spacing-3xl);
+  box-sizing: border-box;
+}
+
+.header__search-form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.header__search-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius, 0.5rem);
+  font-size: 1rem;
+  background: white;
+  outline: none;
+  font-family: var(--font-body);
+}
+
+.header__search-input:focus {
+  border-color: var(--color-dark-accent);
+}
+
+.header__categories {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.header__category {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius, 0.5rem);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: var(--font-body);
+  color: var(--color-dark-accent);
+}
+
+.header__category:hover {
+  background: var(--color-background);
+  color: var(--color-secondary);
+}
+
+.header__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 15;
+}
+
+@media (max-width: 768px) {
+  .header__container {
+    padding: 1rem var(--spacing-xl); /* Matchar footerns mobil-padding */
+  }
+
+  /* Vanlig navigering döljs på mobil, ersätts av burger */
+  .header__nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: white;
+    padding: 1.5rem 1.5rem 2rem;
+    flex-direction: column;
+    gap: 1rem;
+    transform-origin: top center;
+    transform: scaleY(0);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform 0.25s ease,
+      opacity 0.25s ease;
+    border-top: 1px solid var(--color-border);
+    border-bottom-left-radius: var(--radius, 1rem);
+    border-bottom-right-radius: var(--radius, 1rem);
+    z-index: 20;
+  }
+
+  .header__nav--open {
+    transform: scaleY(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .header__nav a {
+    display: block;
+    padding: 0.75rem 0;
+  }
+
+  .header__burger {
+    display: block;
+  }
+
+  .header__search-dropdown {
+    padding: 1rem;
+  }
+
+  .header__categories {
+    gap: 0.75rem;
+  }
+
+  /* Kategoriknapparna görs större och mer klickvänliga på mobil */
+  .header__category {
+    padding: 0.75rem 0.9rem;
+    font-size: 0.95rem;
+    border-color: var(--color-border);
+  }
+
+  .header__search-dropdown-inner {
+    padding: 1.5rem var(--spacing-xl);
+  }
+
+  .header__search-form {
+    margin-bottom: 1.5rem;
+  }
+}
