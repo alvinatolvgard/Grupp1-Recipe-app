@@ -35,7 +35,12 @@ function RecipeDetailPage() {
 
     if (loading) return <div>Loading...</div>
     if (error) return <div>Something went wrong: {error}</div>
-    if (!recipe) return <div>Recipe not found</div>
+    if (!recipe) return (
+        <div className='not-found'>
+            <h2>Recipe not found</h2>
+            <button className='not-found-button' onClick={() => navigate('/')}>Go to home</button>
+        </div>
+    )
 
     // Skapar en lista med ingredienser och mängder från TheMealDB (max 20 st)
     // Filtrerar bort tomma ingredienser
@@ -65,6 +70,7 @@ function RecipeDetailPage() {
                         <img
                         src={recipe.strMealThumb}
                         alt={recipe.strMeal}
+                        onError={(e) => e.target.src = 'https://placehold.co/400x450?text=Image+serving+error+–+chef+is+debugging'}
                     />
                     </div>
             

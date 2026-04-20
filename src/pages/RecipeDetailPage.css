@@ -115,7 +115,7 @@
 .save-button {
     background-color: var(--color-background);
     color: var(--color-secondary);
-    border: 2px solid var(--color-border) !important;
+    border: 3px solid var(--color-border) !important;
 }
 
 .print-button {
@@ -137,7 +137,7 @@
     width: 100%;
     background-color: var(--color-background);
     color: var(--color-secondary);
-    border: 2px solid var(--color-border) !important;
+    border: 3px solid var(--color-border) !important;
 }
 
 .share-button:hover {
@@ -263,4 +263,29 @@
 .more-recipes-grid {
     display: flex;
     gap: var(--spacing-xl);
+}
+
+/* 404 - NOT FOUND */
+.not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-3xl);
+}
+
+.not-found-button {
+    height: 3rem;
+    padding: 0 var(--spacing-xl);
+    font-size: var(--text-body);
+    border-radius: var(--radius-xl);
+    border: 3px solid var(--color-border);
+    background-color: var(--color-background);
+    color: var(--color-secondary);
+    cursor: pointer;
+}
+
+.not-found-button:hover {
+    background-color: var(--color-border);
 }
