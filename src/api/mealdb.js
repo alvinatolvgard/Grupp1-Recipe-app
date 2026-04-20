@@ -63,7 +63,7 @@ export function useRecipeById(id) {
         }
 
         const data = await response.json();
-        setRecipe(data.meals[0]);
+        setRecipe(data.meals ? data.meals[0] : null);
       } catch (err) {
         setError(err.message);
       } finally {

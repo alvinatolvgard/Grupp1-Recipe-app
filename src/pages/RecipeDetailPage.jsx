@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Globe, Tag, Users, ChefHat, Share2, Check } from 'lucide-react';
+import { ArrowLeft, Globe, Tag, Users, ChefHat, Share2, Check, Loader2, Dice1 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { useRecipeById, useRecipesByCategory } from '../api/mealdb';
 import useFavoritesStore from '../stores/useFavoritesStore';
@@ -33,9 +33,18 @@ function RecipeDetailPage() {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    if (loading) return <div>Loading...</div>
+    if (loading) return (
+        <div className='loading'>
+            <Loader2 className='spinner' size={40}/>
+        </div>
+    )
     if (error) return <div>Something went wrong: {error}</div>
-    if (!recipe) return <div>Recipe not found</div>
+    if (!recipe) return (
+        <div className='not-found'>
+            <h2>Recipe not found</h2>
+            <button className='not-found-button' onClick={() => navigate('/')}>Go to home</button>
+        </div>
+    )
 
     // Skapar en lista med ingredienser och mängder från TheMealDB (max 20 st)
     // Filtrerar bort tomma ingredienser
@@ -65,6 +74,7 @@ function RecipeDetailPage() {
                         <img
                         src={recipe.strMealThumb}
                         alt={recipe.strMeal}
+                        onError={(e) => e.target.src = 'https://placehold.co/400x450?text=Image+serving+error+–+chef+is+debugging'}
                     />
                     </div>
             
