@@ -3,6 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useRecipeById, useRecipesByCategory } from '../api/mealdb';
 import useFavoritesStore from '../stores/useFavoritesStore';
 import RecipeCard from '../components/RecipeCard/RecipeCard';
+import getDifficulty from '../utilities/getDifficulty';
 import './RecipeDetailPage.css';
 
 /**
@@ -30,7 +31,7 @@ function RecipeDetailPage() {
     
     // Delar upp instruktionerna i separata steg och filtrerar bort tomma rader
     const instructions = recipe.strInstructions
-        .split('\r\n')
+        .split('\n')
         .filter(step => step.trim() !== '');
 
     return (
@@ -70,7 +71,7 @@ function RecipeDetailPage() {
                             </div>
                             <div className='info-item'>
                                 <span>Difficulty</span>
-                                <p>Medium</p>
+                                <p>{getDifficulty(ingredients)}</p>
                             </div>
                         </div>
                         {/* Save och Print-knappar */}
