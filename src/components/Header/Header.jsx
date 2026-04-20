@@ -2,6 +2,18 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import "./Header.css";
 
+/**
+ * @author Ivana
+ * Huvudkomponenten för webbplatsens navigering.
+ *
+ * Denna komponent renderar webbplatsens logotyp, en navigeringsmeny
+ * (som blir en burgermeny på mobila enheter), en sökikon som öppnar
+ * ett sökfält, och kategoriknappar för snabbfilter.
+ *
+ * @component
+ * @returns {JSX.Element} En renderad header-komponent.
+ */
+
 export default function Header() {
   // State för att hålla koll på om mobilmenyn (burger) är öppen eller inte
   const [menuOpen, setMenuOpen] = useState(false);
