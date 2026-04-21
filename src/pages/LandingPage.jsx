@@ -26,6 +26,7 @@ function LandingPage() {
     }
     if (!recipe) {
         return null;
+
     }
 
     const filters = ["Breakfast", "Dessert", "Vegetarian", "Vegan"];
@@ -71,6 +72,10 @@ function LandingPage() {
                         {filter}</button>
                 ))}
             </div >
+            <div className="recipes-amount">
+                <h2>{activeFilter} recipes</h2>
+                <p>{(hasSearched ? filterRecipes(searchResults, activeFilter) : recipes).length} recipes</p>
+            </div>
             {/* Felmeddelande om det inte finns recept som matchar filtreringen */}
             {
                 hasSearched && filterRecipes(searchResults, activeFilter).length === 0 && (
@@ -80,11 +85,11 @@ function LandingPage() {
 
             {/* Hämtar receptkort och visar dom på sidan */}
             <div className="recipe-cards">
-            {
-                (hasSearched ? filterRecipes(searchResults, activeFilter) : recipes).map((recipe) => (
-                    <RecipeCard key={recipe.idMeal} recipe={recipe} />
+                {
+                    (hasSearched ? filterRecipes(searchResults, activeFilter) : recipes).map((recipe) => (
+                        <RecipeCard key={recipe.idMeal} recipe={recipe} />
                     ))
-            }
+                }
             </div>
 
         </>
