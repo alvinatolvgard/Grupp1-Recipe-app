@@ -11,6 +11,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path='/' element={<LandingPage />} />
         <Route path='/recipe/:id' element={<RecipeDetailPage />} />
       </Routes>
       <Footer /> {/* lades till */}

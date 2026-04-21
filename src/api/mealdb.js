@@ -101,6 +101,7 @@ export function useRecipesByCategory(category) {
         }
 
         const data = await response.json();
+          console.log(data.meals[0])
         setRecipes(data.meals);
       } catch (err) {
         setError(err.message);

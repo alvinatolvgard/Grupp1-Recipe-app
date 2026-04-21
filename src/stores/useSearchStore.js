@@ -6,7 +6,7 @@ import { create } from "zustand";
  */
 const useSearchStore = create((set) => ({
     searchTerm: '',
-    activeFilter: 'all',
+    activeFilter: 'Breakfast',
     searchResults: [],
 
     // Uppdaterar söktermen
@@ -26,7 +26,7 @@ const useSearchStore = create((set) => ({
 
     // Återställer sökning, filter och resultat till ursprungsläget
     resetSearch: () => {
-        set({ searchTerm: '', activeFilter: 'all', searchResults: [] })
+        set({ searchTerm: '', activeFilter: 'Breakfast', searchResults: [] })
     }
 }))
 

@@ -4,12 +4,14 @@ import useSearchStore from "../stores/useSearchStore";
 import RecipeCard from "../components/RecipeCard/RecipeCard";
 import { filterRecipes } from "../utilities/searchHelpers";
 import "./LandingPage.css";
+import { useRecipesByCategory } from "../api/mealdb";
 import { useState } from "react";
 
 function LandingPage() {
     const { recipe, loading, error } = useRandomRecipe();
     const searchResults = useSearchStore((state) => state.searchResults);
     const activeFilter = useSearchStore((state) => state.activeFilter);
+    const { recipes } = useRecipesByCategory(activeFilter);
     const setActiveFilter = useSearchStore((state) => state.setActiveFilter);
     const [hasSearched, setHasSearched] = useState(false);
 
@@ -18,7 +20,7 @@ function LandingPage() {
     // Visar loading medan receptet hämtas och error vid fel
     if (loading) {
         return <p>Loading...</p>;
-    } 
+    }
     if (error) {
         return <p>Something went wrong!</p>;
     }
@@ -26,11 +28,11 @@ function LandingPage() {
         return null;
     }
 
-    const filters = ["All", "Breakfast", "Dessert", "Vegetarian", "Vegan"];
+    const filters = ["Breakfast", "Dessert", "Vegetarian", "Vegan"];
 
     return (
         < >
-        {/* --Hero-sektion-- */}
+            {/* --Hero-sektion-- */}
             <div className="hero">
                 <div className="hero-text">
                     <p className="featured-recipes">FEATURED RECIPES</p>
@@ -57,17 +59,33 @@ function LandingPage() {
 
             {/* --Recipecard-sektion-- */}
             {/* Skapar filtreringsknappar för All, Breakfast, Dessert, Vegetarian och Vegan */}
-            {filters.map((filter) => (
-                <button onClick={() => setActiveFilter(filter)} key={filter}>{filter}</button>
-            ))}
-            {/* Felmeddelande om det inte finns recept som matchar filtreringen */}
-            {hasSearched && filterRecipes(searchResults, activeFilter).length === 0 && (
-                    <p>No recipes found</p>
+            <div className="category-btns">
+                {hasSearched && (
+                    <button
+                        onClick={() => setActiveFilter("All")}
+                        className={activeFilter === "All" ? "active" : ""}> All </button>
                 )}
+                {filters.map((filter) => (
+                    <button onClick={() => setActiveFilter(filter)} key={filter}
+                        className={activeFilter === filter ? "active" : ""}>
+                        {filter}</button>
+                ))}
+            </div >
+            {/* Felmeddelande om det inte finns recept som matchar filtreringen */}
+            {
+                hasSearched && filterRecipes(searchResults, activeFilter).length === 0 && (
+                    <p>No recipes found</p>
+                )
+            }
 
-            {filterRecipes(searchResults, activeFilter).map((recipe) => (
-                <RecipeCard key={recipe.idMeal} recipe={recipe} />
-            ))}
+            {/* Hämtar receptkort och visar dom på sidan */}
+            <div className="recipe-cards">
+            {
+                (hasSearched ? filterRecipes(searchResults, activeFilter) : recipes).map((recipe) => (
+                    <RecipeCard key={recipe.idMeal} recipe={recipe} />
+                    ))
+            }
+            </div>
 
         </>
     )
