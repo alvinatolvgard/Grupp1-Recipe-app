@@ -65,11 +65,10 @@
 .info-card {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-xs);
+    gap: var(--spacing-sm);
     padding: var(--spacing-lg);
     background-color: var(--color-border);
     border-radius: var(--radius-sm);
-    min-width: 400px;
 }
 
 .info-item {
@@ -79,7 +78,7 @@
 
 .info-item span {
     display: flex;
-    gap: var(--spacing-xs);
+    gap: var(--spacing-sm);
     font-size: var(--text-caption);
     color: var(--color-text);
 }
@@ -306,4 +305,86 @@
 .spinner {
     animation: spin 1s linear infinite;
     color: var(--color-dark-accent);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-img-wrapper {
+        width: 100%;
+    }
+
+    .hero-img-wrapper img {
+        width: 100%;
+        height: 300px;
+    }
+
+    .recipe-content {
+        flex-direction: column;
+    }
+
+    .ingredient-list,
+    .instructions-list {
+        width: 100%;
+    }
+
+    .more-recipes-grid {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .recipe-detail-page {
+        padding: var(--spacing-md);
+        width: 100%;
+    }
+
+    .hero-img-wrapper img {
+        height: 250px;
+    }
+
+    .hero-info {
+        width: 100%;
+    }
+
+    .hero-info h1 {
+        font-size: var(--text-hero-mobile);
+    }
+
+    .info-card {
+        padding: var(--spacing-md);
+        width: 100%;
+    }
+
+    .action-buttons-wrapper,
+    .action-buttons {
+        width: 100%;
+    }
+
+    .recipe-content {
+        flex-direction: column;
+    }
+
+    .ingredient-list,
+    .instructions-list {
+        width: 100%;
+    }
+
+    .ingredient-list ul {
+        padding-left: var(--spacing-md);
+    }
+
+    .instructions-list {
+        padding: var(--spacing-sm) var(--spacing-md) var(--spacing-md) var(--spacing-md);
+    }
+
+    .instructions-list li::before {
+        min-width: 1.5rem;
+        height: 1.5rem;
+        font-size: var(--text-caption);
+    }
 }
