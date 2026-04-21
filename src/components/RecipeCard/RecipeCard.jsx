@@ -24,7 +24,9 @@ const RecipeCard = ({ recipe }) => {
                 <img src={recipe.strMealThumb} alt={recipe.strMeal} className="card-image" />
                 <span className="category-badge">{recipe.strCategory}</span>
                 <button className="favorite-circle" onClick={(e) => e.stopPropagation()}>
-                    <Heart size={20}></Heart>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
                     </button>
             </div>
 
@@ -53,7 +55,9 @@ const RecipeCard = ({ recipe }) => {
             </div>
         </article>
     );
+    console.log(recipe);
 };
+
 
 export default RecipeCard;
 

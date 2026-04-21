@@ -67,8 +67,7 @@ function LandingPage() {
                         className={activeFilter === "All" ? "active" : ""}> All </button>
                 )}
                 {filters.map((filter) => (
-                    <button onClick={() => setActiveFilter(filter)} key={filter}
-                        className={activeFilter === filter ? "active" : ""}>
+                    <button className={activeFilter === filter ? "active category-btn" : "category-btn"} onClick={() => setActiveFilter(filter)} key={filter}>
                         {filter}</button>
                 ))}
             </div >

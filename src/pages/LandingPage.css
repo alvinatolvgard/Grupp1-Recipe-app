@@ -95,7 +95,7 @@ h1 {
 
 /* --Recipecard-sektion-- */
 
-button {
+.category-btn {
     background-color: var(--color-card);
     border-style: none;
     padding: var(--spacing-md) var(--spacing-lg);

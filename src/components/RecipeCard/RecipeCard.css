@@ -50,6 +50,13 @@
     cursor: pointer;
     color: var(--color-text);
     box-shadow: var(--shadow-sm);
+    padding: 0 !important;
+}
+
+.favorite-circle svg {
+    width: 20px !important;
+    height: 20px !important;
+
 }
 
 .card-body {
