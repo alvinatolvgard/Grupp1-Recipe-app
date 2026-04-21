@@ -120,6 +120,17 @@ button {
     color: var(--color-card);
 }
 
+.recipe-list-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: var(--spacing-lg);
+}
+
+
 .recipe-cards {
     display: flex;
     flex-direction: row;

@@ -72,9 +72,9 @@ function LandingPage() {
                         {filter}</button>
                 ))}
             </div >
-            <div className="recipes-amount">
-                <h2>{activeFilter} recipes</h2>
-                <p>{(hasSearched ? filterRecipes(searchResults, activeFilter) : recipes).length} recipes</p>
+            <div className="recipe-list-header">
+                <h2 className="recipe-category">{activeFilter} recipes</h2>
+                <p className="recipe-count">{(hasSearched ? filterRecipes(searchResults, activeFilter) : recipes).length} recipes</p>
             </div>
             {/* Felmeddelande om det inte finns recept som matchar filtreringen */}
             {
