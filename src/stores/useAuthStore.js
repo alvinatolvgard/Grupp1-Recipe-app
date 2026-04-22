@@ -1,22 +1,40 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 /**
- * Store för att hantera användarens inloggningsstatus
- * @author Maryam
+ * Store för att hantera användarens inloggningsstatus, favoriter och egna recept.
+ * @author Maryam & Sanel
  */
-const useAuthStore = create((set) => ({
-    user: null,
-    isLoggedIn: false,
+const useAuthStore = create(
+    persist(
+        (set) => ({
+            user: null,
+            isLoggedIn: false,
+            favorites: [],
+            myRecipes: [],
 
-    // Loggar in användaren och sparar användardatan
-    login: (userData) => {
-        set({ user: userData, isLoggedIn: true })
-    },
+            login: (userData) => {
+                set({ user: userData, isLoggedIn: true });
+            },
 
-    // Loggar ut användaren och rensar användardatan
-    logout: () => {
-        set({ user: null, isLoggedIn: false })
-    }
-}))
+            logout: () => {
+                set({ user: null, isLoggedIn: false, favorites: [], myRecipes: [] });
+            },
 
-export default useAuthStore
+            toggleFavorite: (recipeId) => set((state) => ({
+                favorites: state.favorites.includes(recipeId)
+                ? state.favorites.filter((id) => id !== recipeId)
+                : [...state.favorites, recipeId]
+            })),
+
+            addMyRecipe: (newRecipe) => set((state) => ({
+                myRecipes: [...state.myRecipes, newRecipe]
+            }))
+        }),
+        {
+            name: "auth-storage",
+        }
+    )
+);
+
+export default useAuthStore;
