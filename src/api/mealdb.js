@@ -102,7 +102,16 @@ export function useRecipesByCategory(category) {
 
         const data = await response.json();
           console.log(data.meals[0])
-        setRecipes(data.meals);
+
+       const fullRecipes = await Promise.all(
+        data.meals.map(async (meal) => {
+          const res = await fetch(`${API_BASE}/lookup.php?i=${meal.idMeal}`);
+          const detail = await res.json();
+          return detail.meals[0];
+        })
+       );
+       setRecipes(fullRecipes);
+       
       } catch (err) {
         setError(err.message);
       } finally {
