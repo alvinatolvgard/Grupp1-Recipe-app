@@ -1,61 +1,36 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
+
+// Sidor
+import LandingPage from './pages/LandingPage';
 import RecipeDetailPage from './pages/RecipeDetailPage';
-import RecipeCard from './components/RecipeCard/RecipeCard';
-import SearchBar from './components/SearchBar';
-import { useRecipeSearch } from "./api/mealdb";
-import { useState } from 'react';
 import LoginPage from './pages/LoginPage'; // Logga in sidan
 import ProfilePage from './pages/ProfilePage'; //Profil sidan
+
+//Komponenter
+import Header from "./components/Header/Header";
+import Footer from './components/Footer/Footer'; {/* lades till */}
 import ProtectedRoute from './components/ProtectedRoute'; //Skydd för sidor som kräver inlogg
 
+
+
+
 function App() {
-  const { recipes, loading, error, searchRecipes } = useRecipeSearch();
-  const [hasSearched, setHasSearched] = useState(false);
-
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    const searchTerm = e.target.search.value;
-    await searchRecipes(searchTerm);
-    setHasSearched(true);
-  };
-
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/profile' element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-
+        <Route path='/' element={<LandingPage />} />
         <Route path='/recipe/:id' element={<RecipeDetailPage />} />
-        <Route path='/' element={
-          <div style={{ padding: '40px', backgroundColor: '#F9F5F2', minHeight: '100vh' }}>
-            <h1 style={{ fontFamily: 'Georgia, serif', marginBottom: '10px' }}>All Recipes</h1>
-            <form onSubmit={handleSearch} style={{ marginBottom: '20px' }}>
-              <input
-                name="search"
-                type="text"
-                placeholder="Search for recipes (e.g. chicken)"
-                style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
-              />
-              <button type="submit" style={{ marginLeft: '10px', padding: '8px 16px' }}>Sök</button>
-            </form>
-            {loading && <p>Loading recipes...</p>}
-            {error && <p style={{ color: 'red' }}>An error occurred during search: {error}</p>}
-            {hasSearched && !loading && !error && recipes.length === 0 && (
-              <div style={{ textAlign: 'center', marginTop: '40px', width: '100%' }}>
-                <p style={{ fontSize: '1.2rem', color: '#666' }}>
-                  Oops! No recipes matched your search. Try something else!
-                </p>
-              </div>
-            )}
-            <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-              {recipes.map((r) => (
-                <RecipeCard key={r.idMeal} recipe={r} />
-              ))}
-            </div>
-          </div>
-        } />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/profile' element={
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        }
+        />
       </Routes>
+      <Footer /> {/* lades till */}
     </BrowserRouter>
   );
 }

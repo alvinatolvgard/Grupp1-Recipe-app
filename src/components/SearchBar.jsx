@@ -9,7 +9,7 @@ import { useRecipeSearch } from "../api/mealdb"
  * @returns {JSX.Element} - sökfält med sökikon
  */
 
-function SearchBar() {
+function SearchBar({ setHasSearched }) {
     const [searchInput, setSearchInput] = useState("")
     const setSearchTerm = useSearchStore((state) => state.setSearchTerm)
     const setSearchResults = useSearchStore((state) => state.setSearchResults)
@@ -17,18 +17,18 @@ function SearchBar() {
     const { searchRecipes } = useRecipeSearch();
     
     return (
-        <div>
+        <>
             <div className="searchbar">
                 {/* Sökikon som triggar sökningen vid klick */}
-                <span className="material-symbols-outlined" onClick={() => handleSearch(searchInput, setSearchTerm, setSearchResults, searchRecipes, setError)}>search</span>
+                <span className="material-symbols-outlined" onClick={() => handleSearch(searchInput, setSearchTerm, setSearchResults, searchRecipes, setError, setHasSearched)}>search</span>
                 {/* Inputfält som lyssnar på tangenttryck och uppdaterar searchInput */}
                 <input type="text" placeholder="Search by recipe name, ingredient, or tag..."
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && handleSearch(searchInput, setSearchTerm, setSearchResults, searchRecipes, setError)} />
+                    onKeyDown={(e) => e.key === "Enter" && handleSearch(searchInput, setSearchTerm, setSearchResults, searchRecipes, setError, setHasSearched)} />
             </div>
             {error && <p>{error}</p>}
-        </div>
+        </>
     )
 }
 
