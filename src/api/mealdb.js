@@ -101,7 +101,17 @@ export function useRecipesByCategory(category) {
         }
 
         const data = await response.json();
-        setRecipes(data.meals);
+          console.log(data.meals[0])
+
+       const fullRecipes = await Promise.all(
+        data.meals.map(async (meal) => {
+          const res = await fetch(`${API_BASE}/lookup.php?i=${meal.idMeal}`);
+          const detail = await res.json();
+          return detail.meals[0];
+        })
+       );
+       setRecipes(fullRecipes);
+       
       } catch (err) {
         setError(err.message);
       } finally {
@@ -113,4 +123,42 @@ export function useRecipesByCategory(category) {
   }, [category]);
 
   return { recipes, loading, error };
+}
+
+/**
+ * Hämtar ett slumpmässigt recept från TheMealDB
+ * @author Alvina
+ * @returns {object} recipe - receptobjektet, loading-status och eventuellt felmeddelande
+ */
+
+export function useRandomRecipe() {
+  const [recipe, setRecipe] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchRecipe = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch(`${API_BASE}/random.php`);
+
+        if (!response.ok) {
+          throw new Error(`Something went wrong: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setRecipe(data.meals[0]);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecipe();
+  }, []);
+
+  return { recipe, loading, error };
 }
