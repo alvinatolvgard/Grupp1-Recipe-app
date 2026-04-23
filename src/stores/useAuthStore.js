@@ -18,7 +18,7 @@ const useAuthStore = create(
             },
 
             logout: () => {
-                set({ user: null, isLoggedIn: false, favorites: [], myRecipes: [] });
+                set({ user: null, isLoggedIn: false });
             },
 
             toggleFavorite: (recipeId) => set((state) => ({
@@ -29,6 +29,10 @@ const useAuthStore = create(
 
             addMyRecipe: (newRecipe) => set((state) => ({
                 myRecipes: [...state.myRecipes, newRecipe]
+            })),
+
+            deleteMyRecipe: (recipeId) => set((state) => ({
+                myRecipes: state.myRecipes.filter((r) => r.id !== recipeId)
             }))
         }),
         {

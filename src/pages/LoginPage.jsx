@@ -10,6 +10,7 @@ import useAuthStore from '../stores/useAuthStore';
 const LoginPage =() => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState("");
     const login = useAuthStore((state) => state.login);
     const navigate = useNavigate();
 
@@ -17,10 +18,11 @@ const LoginPage =() => {
         e.preventDefault();
 
         if (email === 'test@test.com' && password === '123') {
+            setError("");
             login({ email, name: 'Demo User' });
             navigate('/');
         } else {
-            alert('Invalid email or password. Please try again.');
+            setError('Invalid email or password. Please try again.');
         }
     };
 
@@ -29,7 +31,7 @@ const LoginPage =() => {
         maxWidth: '450px',
         margin: '0 auto',
         backgroundColor: 'var(--color-card)',
-        borderRadius: 'var(--color-lg)',
+        borderRadius: 'var(--radius-lg)',
         boxShadow: 'var(--shadow-md)',
         marginTop: 'var(--spacing-3xl)'
     };
@@ -62,16 +64,34 @@ const LoginPage =() => {
                     type="email"
                     placeholder="Email adress"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                        setEmail(e.target.value);
+                        if(error) setError("");
+                     }}
                     style={inputStyle}
                 />
                 <input
                     type="password"
                     placeholder="Password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) =>{
+                        setPassword(e.target.value);
+                        if(error) setError("");
+                    }}
                     style={inputStyle}
                 />
+
+                {error && (
+                    <p style={{
+                        color: '#d9534f',
+                        fontSize: '0.85rem',
+                        textAlign: 'center',
+                        margin: '0'
+                    }}>
+                        {error}
+                    </p>
+                )}
+                
                 <button type="submit" style={buttonStyle}>
                     Sign In
                 </button>
