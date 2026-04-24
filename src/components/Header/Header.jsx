@@ -1,5 +1,8 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
+import useFavoritesStore from "../../stores/useFavoritesStore";
+import useSearchStore from "../../stores/useSearchStore";
 import "./Header.css";
 
 /**
@@ -19,19 +22,37 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   // State för att hålla koll på om sökfältets dropdown är öppet eller inte
   const [searchOpen, setSearchOpen] = useState(false);
+  const favoritesCount = useFavoritesStore((state) => state.favorites.length);
+  const setActiveFilter = useSearchStore((state) => state.setActiveFilter);
+  const navigate = useNavigate();
+
+  const headerCategories = ["Breakfast", "Dessert", "Vegetarian", "Vegan"];
+
+  const handleHeaderCategoryClick = (category) => {
+    setActiveFilter(category);
+    navigate("/");
+    setSearchOpen(false);
+  };
 
   return (
     <header className="header">
       <div className="header__container">
-        <a className="header__logo" href="/">
+        <Link className="header__logo" to="/">
           CodeCuisine
-        </a>
+        </Link>
 
         <div className="header__right">
           <nav className={`header__nav ${menuOpen ? "header__nav--open" : ""}`}>
-            <a href="/recipes">Recipes</a>
-            <a href="/favorites">Favorites</a>
-            <a href="/about">About</a>
+            <Link to="/">Recipes</Link>
+            <Link to="/favourites" className="header__favorites-link">
+              Favourites
+              {favoritesCount > 0 && (
+                <span className="header__favorites-badge">
+                  {favoritesCount}
+                </span>
+              )}
+            </Link>
+            <Link to="/about">About</Link>
           </nav>
 
           <button
@@ -67,18 +88,16 @@ export default function Header() {
           </form>
           {/* Exempel på kategoriknappar som användaren kan klicka på direkt, här måste vi kanske lägga till vägar senare? */}
           <div className="header__categories">
-            <button type="button" className="header__category">
-              Dessert
-            </button>
-            <button type="button" className="header__category">
-              Dinner
-            </button>
-            <button type="button" className="header__category">
-              Breakfast
-            </button>
-            <button type="button" className="header__category">
-              Lunch
-            </button>
+            {headerCategories.map((category) => (
+              <button
+                key={category}
+                type="button"
+                className="header__category"
+                onClick={() => handleHeaderCategoryClick(category)}
+              >
+                {category}
+              </button>
+            ))}
           </div>
         </div>
       </div>
