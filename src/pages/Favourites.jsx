@@ -4,7 +4,7 @@ import "./Favourites.css";
 import { Heart } from "lucide-react";
 
 /**
- * Favourites page - displays all recipes saved by the user
+ * Favoritsidan som visar alla sparade recept i en grid-layout. Inkluderar en header med ikon och beskrivning, samt hanterar tomt tillstånd när inga favoriter finns.
  * @author Ivana
  * @returns {JSX.Element} Favouritsidan som visar alla sparade recept i en grid-layout. Inkluderar en header med ikon och beskrivning, samt hanterar tomt tillstånd när inga favoriter finns.
  */
