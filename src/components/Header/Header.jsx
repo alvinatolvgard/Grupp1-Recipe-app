@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Search } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom"; //För att sidan inte ska laddas om. Sanel
+import useAuthStore from "../../stores/useAuthStore"; // För att hantera logga in och ut. Sanel
 import "./Header.css";
 
 /**
@@ -20,18 +22,41 @@ export default function Header() {
   // State för att hålla koll på om sökfältets dropdown är öppet eller inte
   const [searchOpen, setSearchOpen] = useState(false);
 
+  // State för inloggningsstatus och logout-funktion från store. Sanel
+  const { isLoggedIn, logout } = useAuthStore();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/"); // Skickar användaren till startsiden efter utloggning. Sanel
+    setMenuOpen(false); // Stängmobilmenyn om den är öppen. Sanel
+  };
+
   return (
     <header className="header">
       <div className="header__container">
-        <a className="header__logo" href="/">
+        {/* Använde Link istället för <a> för att undvika omladdning. Sanel */}
+        <Link className="header__logo" to="/">
           CodeCuisine
-        </a>
+        </Link>
 
         <div className="header__right">
           <nav className={`header__nav ${menuOpen ? "header__nav--open" : ""}`}>
-            <a href="/recipes">Recipes</a>
-            <a href="/favorites">Favorites</a>
-            <a href="/about">About</a>
+            <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+
+            {isLoggedIn ? (
+              <>
+                <Link to="/profile" onClick={() => setMenuOpen(false)}>My Recipes</Link>
+                <button  onClick={handleLogout} className="header__logout-btn" style={{ background:'none', border: 'none', cursor: 'pointer', font: 'inherit', color: 'inherit' }}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
+            )}
+
+            <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
           </nav>
 
           <button
