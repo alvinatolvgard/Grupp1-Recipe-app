@@ -1,7 +1,7 @@
 /* Footer CSS */
 
 .footer {
-    background-color: var(--color-background);
+    background-color: #ffffff;
     padding: var(--spacing-3xl) 0 var(--spacing-xl);
     margin-top: auto;
 }
@@ -85,7 +85,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: var(--color-card);
+    background-color: var(--color-border);
     display: flex;
     align-items: center;
     justify-content: center;
