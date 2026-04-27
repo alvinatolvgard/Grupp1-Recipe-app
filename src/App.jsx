@@ -1,3 +1,14 @@
+import LandingPage from "./pages/LandingPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import RecipeDetailPage from "./pages/RecipeDetailPage";
+import Favourites from "./pages/Favourites";
+import Footer from "./components/Footer/Footer";
+{
+  /* lades till */
+}
+import Header from "./components/Header/Header";
+import Toast from "./components/Toast/Toast";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 
@@ -19,11 +30,12 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Routes>
-        <Route path='/' element={<LandingPage />} />
-        <Route path='/recipe/:id' element={<RecipeDetailPage />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/profile' element={
+      <Toast />
+       <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/recipe/:id" element={<RecipeDetailPage />} />
+        <Route path="/favourites" element={<Favourites />} />
+        <Route path="/login" element={<LoginPage />} />
           <ProtectedRoute>
             <ProfilePage />
           </ProtectedRoute>

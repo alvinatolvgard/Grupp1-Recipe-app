@@ -1,0 +1,135 @@
+/* Huvudcontainer */
+.favourites-page {
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+/* Header-sektion med ikon och titel */
+.favourites-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3xl) var(--spacing-3xl) var(--spacing-2xl);
+  text-align: center;
+  background-color: var(--color-background);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Hjärtikon styling */
+.favourites-icon {
+  margin-bottom: var(--spacing-lg);
+  display: grid;
+  place-items: center;
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 50%;
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+}
+
+.favourites-icon svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Titel */
+.favourites-header h1 {
+  font-family: var(--font-heading);
+  font-size: var(--text-hero);
+  color: var(--color-secondary);
+  margin-bottom: var(--spacing-sm);
+  margin-top: 0;
+}
+
+/* Sub-titel */
+.favourites-subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--color-text);
+  max-width: 600px;
+  line-height: var(--line-height-normal);
+  margin: 0;
+}
+
+/* Container för recipe-kort */
+.favourites-container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-3xl);
+}
+
+/* Receptantal */
+.favourites-count {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-2xl);
+  text-transform: capitalize;
+}
+
+/* Grid layout för recipe cards -> samma som LandingPage */
+.favourites-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.favourites-grid .recipe-card {
+  width: 340px;
+  margin: 0;
+}
+
+/* Empty state styling */
+.no-favorites {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3xl) var(--spacing-2xl);
+  text-align: center;
+  background-color: var(--color-card);
+  border-radius: var(--radius-md);
+  min-height: 300px;
+}
+
+.no-favorites p {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--color-text);
+  margin: var(--spacing-sm) 0;
+}
+
+.no-favorites p:first-child {
+  font-weight: 600;
+  color: var(--color-secondary);
+}
+
+/* Responsivitet */
+@media (max-width: 768px) {
+  .favourites-header {
+    padding: var(--spacing-2xl) var(--spacing-lg) var(--spacing-xl);
+  }
+
+  .favourites-header h1 {
+    font-size: var(--text-hero-mobile);
+  }
+
+  .favourites-container {
+    padding: var(--spacing-xl) var(--spacing-lg);
+  }
+
+  .favourites-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+
+  .no-favorites {
+    min-height: 250px;
+    padding: var(--spacing-2xl) var(--spacing-lg);
+  }
+}
