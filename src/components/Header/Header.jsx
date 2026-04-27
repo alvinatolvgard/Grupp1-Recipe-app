@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 import useFavoritesStore from "../../stores/useFavoritesStore";
 import useSearchStore from "../../stores/useSearchStore";
-import { Link, useNavigate } from "react-router-dom"; //För att sidan inte ska laddas om. Sanel
 import useAuthStore from "../../stores/useAuthStore"; // För att hantera logga in och ut. Sanel
 import "./Header.css";
 
@@ -27,6 +26,7 @@ export default function Header() {
   const favoritesCount = useFavoritesStore((state) => state.favorites.length);
   const setActiveFilter = useSearchStore((state) => state.setActiveFilter);
   const navigate = useNavigate();
+  const navigateLogin = useNavigate();
 
   const headerCategories = ["Breakfast", "Dessert", "Vegetarian", "Vegan"];
 
@@ -38,11 +38,10 @@ export default function Header() {
 
   // State för inloggningsstatus och logout-funktion från store. Sanel
   const { isLoggedIn, logout } = useAuthStore();
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    navigate("/"); // Skickar användaren till startsiden efter utloggning. Sanel
+    navigateLogin("/"); // Skickar användaren till startsiden efter utloggning. Sanel
     setMenuOpen(false); // Stängmobilmenyn om den är öppen. Sanel
   };
 
@@ -66,21 +65,38 @@ export default function Header() {
               )}
             </Link>
             <Link to="/about">About</Link>
-            <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+            <Link to="/" onClick={() => setMenuOpen(false)}>
+              Home
+            </Link>
 
             {isLoggedIn ? (
               <>
-                <Link to="/profile" onClick={() => setMenuOpen(false)}>My Recipes</Link>
-                <button  onClick={handleLogout} className="header__logout-btn" style={{ background:'none', border: 'none', cursor: 'pointer', font: 'inherit', color: 'inherit' }}
+                <Link to="/profile" onClick={() => setMenuOpen(false)}>
+                  My Recipes
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="header__logout-btn"
+                  style={{
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    font: "inherit",
+                    color: "inherit",
+                  }}
                 >
                   Logout
                 </button>
               </>
             ) : (
-              <Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
+              <Link to="/login" onClick={() => setMenuOpen(false)}>
+                Login
+              </Link>
             )}
 
-            <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
+            <Link to="/about" onClick={() => setMenuOpen(false)}>
+              About
+            </Link>
           </nav>
 
           <button
