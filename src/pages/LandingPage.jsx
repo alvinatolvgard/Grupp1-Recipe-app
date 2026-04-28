@@ -6,14 +6,14 @@ import { filterRecipes } from "../utilities/searchHelpers";
 import "./LandingPage.css";
 import { useRecipesByCategory } from "../api/mealdb";
 import { Users, Tag, Star, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function LandingPage() {
   const { recipe, loading, error } = useRandomRecipe();
   const searchResults = useSearchStore((state) => state.searchResults);
   const activeFilter = useSearchStore((state) => state.activeFilter);
-  const { recipes } = useRecipesByCategory(activeFilter);
+  const { recipes, error: recipesError, loading: recipesLoading } = useRecipesByCategory(activeFilter);
   const setActiveFilter = useSearchStore((state) => state.setActiveFilter);
   const [hasSearched, setHasSearched] = useState(false);
   const navigate = useNavigate();
@@ -21,8 +21,17 @@ function LandingPage() {
   const visibleRecipes = (
     hasSearched ? filterRecipes(searchResults, activeFilter) : recipes
   ).slice(0, visibleCount);
-  console.log("recipes:", recipes);
-  console.log("visibleRecipes", visibleRecipes);
+const [showLoading, setShowLoading] = useState(false);
+
+// Loading-meddelande visas först efter 500ms
+useEffect(() => {
+    if (recipesLoading) {
+        const timer = setTimeout(() => setShowLoading(true), 500);
+        return () => clearTimeout(timer);
+    } else {
+        setShowLoading(false);
+    } [recipesLoading];
+})
 
   if (recipe) console.log(recipe);
 
@@ -139,9 +148,11 @@ function LandingPage() {
           <p>No recipes found</p>
         )}
 
+        {recipesError && <p>Our recipes seem to have gone missing. The chef is on it!</p>}
+        {showLoading && <p>Preparing your recipes...</p>}
       {/* Hämtar receptkort och visar dom på sidan */}
       <div className="recipe-cards">
-        {visibleRecipes.map((recipe) => (
+        {!recipesError && !showLoading && visibleRecipes.map((recipe) => (
           <RecipeCard key={recipe.idMeal} recipe={recipe} />
         ))}
       </div>
