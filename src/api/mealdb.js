@@ -90,6 +90,7 @@ export function useRecipesByCategory(category) {
   const [error, setError] = useState(null);
   const categoryCache = useSearchStore((state) => state.categoryCache);
   const setCategoryCache = useSearchStore((state) => state.setCategoryCache);
+  const [allMealsIds, setAllMealsIds] = useState([]);
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -104,10 +105,12 @@ export function useRecipesByCategory(category) {
         }
 
         const data = await response.json();
+        setAllMealsIds(data.meals);
+        const first15 = data.meals.slice(0, 15);
         console.log(data.meals[0])
 
         const fullRecipes = await Promise.all(
-          data.meals.map(async (meal) => {
+          first15.map(async (meal) => {
             const res = await fetch(`${API_BASE}/lookup.php?i=${meal.idMeal}`);
             const detail = await res.json();
             return detail.meals[0];
@@ -130,7 +133,20 @@ export function useRecipesByCategory(category) {
     }
   }, [category]);
 
-  return { recipes, loading, error };
+  const fetchMore = async () => {
+    const nextBatch = allMealsIds.slice(recipes.length, recipes.length + 15);
+    const newRecipes = await Promise.all(
+      nextBatch.map(async (meal) => {
+        const res = await fetch(`${API_BASE}/lookup.php?i=${meal.idMeal}`);
+        const detail = await res.json();
+        return detail.meals[0];
+      })
+    );
+
+    setRecipes([...recipes, ...newRecipes]);
+  }
+
+  return { recipes, loading, error, allMealsIds, fetchMore };
 }
 
 /**

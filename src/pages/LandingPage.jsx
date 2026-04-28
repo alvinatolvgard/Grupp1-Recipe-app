@@ -13,14 +13,11 @@ function LandingPage() {
   const { recipe, loading, error } = useRandomRecipe();
   const searchResults = useSearchStore((state) => state.searchResults);
   const activeFilter = useSearchStore((state) => state.activeFilter);
-  const { recipes, error: recipesError, loading: recipesLoading } = useRecipesByCategory(activeFilter);
+  const { recipes, error: recipesError, loading: recipesLoading, fetchMore, allMealsIds } = useRecipesByCategory(activeFilter);
   const setActiveFilter = useSearchStore((state) => state.setActiveFilter);
   const [hasSearched, setHasSearched] = useState(false);
   const navigate = useNavigate();
-  const [visibleCount, setVisibleCount] = useState(15);
-  const visibleRecipes = (
-    hasSearched ? filterRecipes(searchResults, activeFilter) : recipes
-  ).slice(0, visibleCount);
+  const visibleRecipes = hasSearched ? filterRecipes(searchResults, activeFilter) : recipes;;
 const [showLoading, setShowLoading] = useState(false);
 const featuredRecipe = useSearchStore((state) => state.featuredRecipe);
 const setFeaturedRecipe = useSearchStore((state) => state.setFeaturedRecipe);
@@ -147,7 +144,7 @@ useEffect(() => {
         <h2 className="recipe-category">{activeFilter} recipes</h2>
         <p className="recipe-count">
           {
-            (hasSearched ? filterRecipes(searchResults, activeFilter) : recipes)
+            (hasSearched ? filterRecipes(searchResults, activeFilter) : allMealsIds)
               .length
           }{" "}
           recipes
@@ -168,17 +165,13 @@ useEffect(() => {
         ))}
       </div>
 
-      {/* Kollar ifall listan med recept är längre än 15, om den är det visas Show More knappen. om inte visas knappen inte */}
-      {/* När knappen klickas ökas visibleCount med 15 och visar därmed 15 recept till */}
-      {visibleCount <
-        (hasSearched ? filterRecipes(searchResults, activeFilter) : recipe)
-          .length && (
+      {/* show more knappen visas om det finns mer än 15 recept att hämtas */}
+      {/* recipes.length är hur många recept som hämtats, 15, 30, 45 osv */}
+      {recipes.length < allMealsIds.length && (
         <button
-          className="show-more-btn"
-          onClick={() => setVisibleCount(visibleCount + 15)}
-        >
-          Show More
-        </button>
+        className="show-more-btn"
+        onClick={fetchMore}
+        >Show More</button>
       )}
     </>
   );
