@@ -33,6 +33,7 @@ const RecipeCard = ({ recipe }) => {
           src={recipe.strMealThumb}
           alt={recipe.strMeal}
           className="card-image"
+          onError={(e) => e.target.src = 'https://placehold.co/400x450?text=Image+serving+error+–+chef+is+debugging'}
         />
         <span className="category-badge">{recipe.strCategory}</span>
         <button
