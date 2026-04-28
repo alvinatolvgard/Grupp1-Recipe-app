@@ -3,6 +3,7 @@
 // Använder vi ett till API, gör en ny fil med API:ets namn 
 
 import { useEffect, useState } from "react";
+import useSearchStore from "../stores/useSearchStore";
 
 const API_BASE = "https://www.themealdb.com/api/json/v1/1";
 
@@ -87,6 +88,8 @@ export function useRecipesByCategory(category) {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const categoryCache = useSearchStore((state) => state.categoryCache);
+  const setCategoryCache = useSearchStore((state) => state.setCategoryCache);
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -101,17 +104,18 @@ export function useRecipesByCategory(category) {
         }
 
         const data = await response.json();
-          console.log(data.meals[0])
+        console.log(data.meals[0])
 
-       const fullRecipes = await Promise.all(
-        data.meals.map(async (meal) => {
-          const res = await fetch(`${API_BASE}/lookup.php?i=${meal.idMeal}`);
-          const detail = await res.json();
-          return detail.meals[0];
-        })
-       );
-       setRecipes(fullRecipes);
-       
+        const fullRecipes = await Promise.all(
+          data.meals.map(async (meal) => {
+            const res = await fetch(`${API_BASE}/lookup.php?i=${meal.idMeal}`);
+            const detail = await res.json();
+            return detail.meals[0];
+          })
+        );
+        setRecipes(fullRecipes);
+        setCategoryCache(category, fullRecipes);
+
       } catch (err) {
         setError(err.message);
       } finally {
@@ -119,7 +123,11 @@ export function useRecipesByCategory(category) {
       }
     };
 
-    fetchRecipes();
+    if (categoryCache[category]) {
+      setRecipes(categoryCache[category]);
+    } else {
+      fetchRecipes();
+    }
   }, [category]);
 
   return { recipes, loading, error };

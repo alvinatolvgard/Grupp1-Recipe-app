@@ -22,6 +22,9 @@ function LandingPage() {
     hasSearched ? filterRecipes(searchResults, activeFilter) : recipes
   ).slice(0, visibleCount);
 const [showLoading, setShowLoading] = useState(false);
+const featuredRecipe = useSearchStore((state) => state.featuredRecipe);
+const setFeaturedRecipe = useSearchStore((state) => state.setFeaturedRecipe);
+const displayedRecipe = featuredRecipe ?? recipe;
 
 // Loading-meddelande visas först efter 500ms
 useEffect(() => {
@@ -32,6 +35,14 @@ useEffect(() => {
         setShowLoading(false);
     }
 }, [recipesLoading]);
+
+  useEffect(() => {
+    if (recipe && !featuredRecipe) {
+        setFeaturedRecipe(recipe) 
+    } 
+    
+  }, [recipe, featuredRecipe])
+
 
   if (recipe) console.log(recipe);
 
@@ -54,11 +65,11 @@ useEffect(() => {
       <div className="hero">
         <div className="hero-text">
           <p className="featured-recipes">FEATURED RECIPES</p>
-          <h1 className="header-h1">{recipe.strMeal}</h1>
+          <h1 className="header-h1">{displayedRecipe.strMeal}</h1>
           <div className="header-icons">
             <span className="category-icon">
               <Tag size={16} />
-              {recipe.strCategory}
+              {displayedRecipe.strCategory}
             </span>
             <span className="servings-icon">
               <Users size={16} /> {"4 servings"}
@@ -88,7 +99,7 @@ useEffect(() => {
           {/* TODO: länka till receptsida när den är klar */}
           <button
             className="view-recipe-btn"
-            onClick={() => navigate(`/recipe/${recipe.idMeal}`)}
+            onClick={() => navigate(`/recipe/${displayedRecipe.idMeal}`)}
           >
             View Recipe
             <span>
@@ -97,7 +108,7 @@ useEffect(() => {
           </button>
         </div>
         <div>
-          <img className="hero-img" src={recipe.strMealThumb} />
+          <img className="hero-img" src={displayedRecipe.strMealThumb} />
         </div>
       </div>
 
@@ -160,7 +171,7 @@ useEffect(() => {
       {/* Kollar ifall listan med recept är längre än 15, om den är det visas Show More knappen. om inte visas knappen inte */}
       {/* När knappen klickas ökas visibleCount med 15 och visar därmed 15 recept till */}
       {visibleCount <
-        (hasSearched ? filterRecipes(searchResults, activeFilter) : recipes)
+        (hasSearched ? filterRecipes(searchResults, activeFilter) : recipe)
           .length && (
         <button
           className="show-more-btn"
