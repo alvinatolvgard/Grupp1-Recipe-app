@@ -30,8 +30,8 @@ useEffect(() => {
         return () => clearTimeout(timer);
     } else {
         setShowLoading(false);
-    } [recipesLoading];
-})
+    }
+}, [recipesLoading]);
 
   if (recipe) console.log(recipe);
 
