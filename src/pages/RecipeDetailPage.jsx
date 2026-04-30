@@ -69,7 +69,7 @@ function RecipeDetailPage() {
                 </button>
 
                 {/* Hero-sektion med bild och grundläggande receptinfo */}
-                <section className='hero'>
+                <section className='recipe-hero'>
                     <div className='hero-img-wrapper'>
                         <img
                         src={recipe.strMealThumb}

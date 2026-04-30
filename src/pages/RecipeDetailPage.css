@@ -19,9 +19,9 @@
 }
 
 /* HERO */
-.hero {
+.recipe-hero {
     display: flex;
-    gap: var(--spacing-xl);
+    gap: var(--spacing-lg);
     align-items: flex-end;
 }
 
@@ -31,7 +31,7 @@
 
 .hero-img-wrapper img {
     width: 400px;
-    height: 450px;
+    height: 500px;
     object-fit: cover;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-lg);
@@ -42,6 +42,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
+    min-width: 400px;
     width: 100%;
 }
 
@@ -246,13 +247,14 @@
 /* MORE RECIPES */
 .more-recipes {
     background-color: var(--color-border);
-    padding: var(--spacing-xl);
+    padding: var(--spacing-xl) 0;
     margin-top: var(--spacing-xl);
 }
 
 .more-recipes-content {
     max-width: var(--container-max-width);
     margin: 0 auto;
+    padding: 0 var(--spacing-xl);
 }
 
 .more-recipes-content > h2 {
@@ -263,6 +265,10 @@
 .more-recipes-grid {
     display: flex;
     gap: var(--spacing-xl);
+}
+
+.more-recipes-grid > * {
+    flex: 1;
 }
 
 /* 404 - NOT FOUND */
@@ -310,9 +316,15 @@
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-    .hero {
+    .recipe-hero {
         flex-direction: column;
         align-items: stretch;
+        padding: var(--spacing-md);
+    }
+
+    .hero-info {
+        min-width: unset;
+        width: 100%;
     }
 
     .hero-img-wrapper {
@@ -321,7 +333,7 @@
 
     .hero-img-wrapper img {
         width: 100%;
-        height: 300px;
+        height: 350px;
     }
 
     .recipe-content {
@@ -334,7 +346,16 @@
     }
 
     .more-recipes-grid {
-        flex-direction: column;
+        overflow-x: auto;
+        padding: 0 var(--spacing-lg) var(--spacing-sm) var(--spacing-lg);
+    }
+
+    .more-recipes-grid > * {
+        flex: 0 0 400px;
+    }
+
+    .more-recipes-content {
+        padding: 0;
     }
 }
 
@@ -387,5 +408,17 @@
         min-width: 1.5rem;
         height: 1.5rem;
         font-size: var(--text-caption);
+    }
+}
+
+@media (max-width: 375px) {
+    .recipe-hero {
+        padding: var(--spacing-xs);
+    }
+}
+
+@media (max-width: 320px) {
+    .info-item p {
+        font-size: var(--text-body);
     }
 }
