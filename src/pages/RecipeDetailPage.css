@@ -353,6 +353,10 @@
     .more-recipes-grid > * {
         flex: 0 0 400px;
     }
+
+    .more-recipes-content {
+        padding: 0;
+    }
 }
 
 @media (max-width: 480px) {
