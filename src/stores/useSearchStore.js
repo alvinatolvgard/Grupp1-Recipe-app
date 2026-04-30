@@ -8,6 +8,8 @@ const useSearchStore = create((set) => ({
     searchTerm: '',
     activeFilter: 'Breakfast',
     searchResults: [],
+    featuredRecipe: null,
+    categoryCache: {},
 
     // Uppdaterar söktermen
     setSearchTerm: (term) => {
@@ -27,7 +29,14 @@ const useSearchStore = create((set) => ({
     // Återställer sökning, filter och resultat till ursprungsläget
     resetSearch: () => {
         set({ searchTerm: '', activeFilter: 'Breakfast', searchResults: [] })
-    }
+    },
+
+    setFeaturedRecipe: (recipe) => set({ featuredRecipe: recipe }),
+
+
+    setCategoryCache: (category, recipes, allMealsIds) => set((state) => ({
+        categoryCache: { ...state.categoryCache, [category]: {recipes, allMealsIds } }
+    }))
 }))
 
 export default useSearchStore
