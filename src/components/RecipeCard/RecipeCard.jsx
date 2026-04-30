@@ -90,7 +90,7 @@ const RecipeCard = ({ recipe }) => {
               <Globe size={16} /> {recipe.strArea}
             </span>
             <span className="icon-text">
-              <Users size={16} /> {"4 servings"}
+              <Users size={16} /> {"4"}
             </span>
           </div>
           <span className="difficulty-tag">

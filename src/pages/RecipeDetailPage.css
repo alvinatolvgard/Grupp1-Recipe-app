@@ -315,12 +315,41 @@
 }
 
 /* RESPONSIVE */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .recipe-hero {
         flex-direction: column;
         align-items: stretch;
         padding: var(--spacing-md);
     }
+
+    .hero-img-wrapper img {
+        width: 100%;
+        max-width: 100%;
+        height: 400px;
+    }
+
+    .hero-info {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .more-recipes-grid {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding: 0 var(--spacing-lg) var(--spacing-sm) var(--spacing-lg);
+        -webkit-overflow-scrolling: touch; /* smidigare scroll på iOS */
+    }
+
+    .more-recipes-grid > * {
+        flex: 0 0 320px;      /* varje kort blir exakt 320px brett och krymper inte */
+    }
+
+    .more-recipes-content {
+        padding: 0;         /* låter scroll gå ända ut till kanten */
+    }
+}
+
+@media (max-width: 768px) {
 
     .hero-info {
         min-width: unset;
@@ -343,19 +372,6 @@
     .ingredient-list,
     .instructions-list {
         width: 100%;
-    }
-
-    .more-recipes-grid {
-        overflow-x: auto;
-        padding: 0 var(--spacing-lg) var(--spacing-sm) var(--spacing-lg);
-    }
-
-    .more-recipes-grid > * {
-        flex: 0 0 400px;
-    }
-
-    .more-recipes-content {
-        padding: 0;
     }
 }
 
