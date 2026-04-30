@@ -34,8 +34,8 @@ const useSearchStore = create((set) => ({
     setFeaturedRecipe: (recipe) => set({ featuredRecipe: recipe }),
 
 
-    setCategoryCache: (category, recipes) => set((state) => ({
-        categoryCache: { ...state.categoryCache, [category]: recipes }
+    setCategoryCache: (category, recipes, allMealsIds) => set((state) => ({
+        categoryCache: { ...state.categoryCache, [category]: {recipes, allMealsIds } }
     }))
 }))
 

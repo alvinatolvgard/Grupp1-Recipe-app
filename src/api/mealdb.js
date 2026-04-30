@@ -117,7 +117,7 @@ export function useRecipesByCategory(category) {
           })
         );
         setRecipes(fullRecipes);
-        setCategoryCache(category, fullRecipes);
+        setCategoryCache(category, fullRecipes, data.meals);
 
       } catch (err) {
         setError(err.message);
@@ -127,7 +127,8 @@ export function useRecipesByCategory(category) {
     };
 
     if (categoryCache[category]) {
-      setRecipes(categoryCache[category]);
+      setRecipes(categoryCache[category].recipes);
+      setAllMealsIds(categoryCache[category].allMealsIds);
     } else {
       fetchRecipes();
     }
