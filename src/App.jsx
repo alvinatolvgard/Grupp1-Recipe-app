@@ -13,12 +13,14 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Toast from "./components/Toast/Toast";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Toast />
+      <ScrollToTopButton />
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
