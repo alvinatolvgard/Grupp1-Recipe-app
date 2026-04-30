@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Globe, Tag, Users, ChefHat, Share2, Check, Loader2, Dice1 } from 'lucide-react';
+import { ArrowLeft, Globe, Tag, Users, ChefHat, Share2, Check, Loader2 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { useRecipeById, useRecipesByCategory } from '../api/mealdb';
 import useFavoritesStore from '../stores/useFavoritesStore';
@@ -9,6 +9,8 @@ import './RecipeDetailPage.css';
 
 /**
  * Sida för att visa detaljerad information om ett enskilt recept
+ * Hämtar receptdata från TheMealDB baserat på ID från URL-parametern
+ * Visar hero med bild, info-kort, ingredienser, instruktioner och slumpade receptförslag
  * @author Maryam
  */
 function RecipeDetailPage() {
@@ -178,7 +180,12 @@ function RecipeDetailPage() {
                 <div className='more-recipes-content'>
                     <h2>More {recipe.strCategory} Recipes</h2>
                     <div className='more-recipes-grid'>
-                        {recipes && recipes.slice(0, 3).map((r) => (
+                        {/* Filtrerar bort nuvarande recept, shufflar och visar tre slumpade recept från samma kategori */}
+                        {recipes && recipes
+                            .filter((r) => r.idMeal !== recipe.idMeal)
+                            .sort(() => Math.random() - 0.5)
+                            .slice(0, 3)
+                            .map((r) => (
                             <RecipeCard key={r.idMeal} recipe={r} />
                         ))}
                     </div>
