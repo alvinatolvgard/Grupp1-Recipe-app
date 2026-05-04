@@ -61,7 +61,7 @@ useEffect(() => {
       {/* --Hero-sektion-- */}
       <div className="hero">
         <div className="hero-text">
-          <p className="featured-recipes">FEATURED RECIPES</p>
+          <p className="featured-recipes">FEATURED RECIPE</p>
           <h1 className="header-h1">{displayedRecipe.strMeal}</h1>
           <div className="header-icons">
             <span className="category-icon">
@@ -69,7 +69,8 @@ useEffect(() => {
               {displayedRecipe.strCategory}
             </span>
             <span className="servings-icon">
-              <Users size={16} /> {"4 servings"}
+              <Users size={16} /> 
+              <span className="servings-text">4 servings</span>
             </span>
           </div>
           <div className="rating">
