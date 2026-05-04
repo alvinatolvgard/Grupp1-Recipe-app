@@ -93,6 +93,8 @@ export function useRecipesByCategory(category) {
   const [allMealsIds, setAllMealsIds] = useState([]);
 
   useEffect(() => {
+    if (category === "All") return;
+    
     const fetchRecipes = async () => {
       setLoading(true);
       setError(null);
@@ -128,7 +130,7 @@ export function useRecipesByCategory(category) {
 
     if (categoryCache[category]) {
       setRecipes(categoryCache[category].recipes);
-      setAllMealsIds(categoryCache[category].allMealsIds);
+      setAllMealsIds(categoryCache[category].allMealsIds ?? []);
     } else {
       fetchRecipes();
     }
