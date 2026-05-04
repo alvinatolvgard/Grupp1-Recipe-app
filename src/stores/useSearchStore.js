@@ -10,6 +10,7 @@ const useSearchStore = create((set) => ({
     searchResults: [],
     featuredRecipe: null,
     categoryCache: {},
+    searchInput: '',
 
     // Uppdaterar söktermen
     setSearchTerm: (term) => {
@@ -26,9 +27,11 @@ const useSearchStore = create((set) => ({
         set({ searchResults: results })
     },
 
+    setSearchInput: (input) => set({ searchInput: input }),
+
     // Återställer sökning, filter och resultat till ursprungsläget
     resetSearch: () => {
-        set({ searchTerm: '', activeFilter: 'Breakfast', searchResults: [] })
+        set({ searchTerm: '', activeFilter: 'Breakfast', searchResults: [], searchInput: '' })
     },
 
     setFeaturedRecipe: (recipe) => set({ featuredRecipe: recipe }),

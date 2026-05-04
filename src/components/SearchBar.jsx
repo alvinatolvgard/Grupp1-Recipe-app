@@ -10,7 +10,8 @@ import { useRecipeSearch } from "../api/mealdb"
  */
 
 function SearchBar({ setHasSearched }) {
-    const [searchInput, setSearchInput] = useState("")
+    const searchInput = useSearchStore((state) => state.searchInput)
+    const setSearchInput = useSearchStore((state) => state.setSearchInput)
     const setSearchTerm = useSearchStore((state) => state.setSearchTerm)
     const setSearchResults = useSearchStore((state) => state.setSearchResults)
     const setActiveFilter = useSearchStore((state) => state.setActiveFilter)
