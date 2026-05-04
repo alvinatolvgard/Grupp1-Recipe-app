@@ -4,6 +4,7 @@ import "./RecipeCard.css";
 import { Star, Globe, Users, Heart } from "lucide-react";
 import getDifficulty from "../../utilities/getDifficulty";
 import useFavoritesStore from "../../stores/useFavoritesStore";
+import StarRating from "../StarRating/StarRating"; // Maryam
 
 const RecipeCard = ({ recipe }) => {
   const navigate = useNavigate();
@@ -64,24 +65,7 @@ const RecipeCard = ({ recipe }) => {
         <p className="recipe-desc">{recipe.strArea}</p>
 
         <div className="rating-row">
-          <div className="stars-list">
-            <span className="star-filled">
-              <Star size={18} fill="currentColor" />
-            </span>
-            <span className="star-filled">
-              <Star size={18} fill="currentColor" />
-            </span>
-            <span className="star-filled">
-              <Star size={18} fill="currentColor" />
-            </span>
-            <span className="star-filled">
-              <Star size={18} fill="currentColor" />
-            </span>
-            <span className="star-empty">
-              <Star size={18} fill="none" />
-            </span>
-          </div>
-          <span className="rating-number">4.2 (24)</span>
+          <StarRating recipeId={recipe.idMeal} />
         </div>
 
         <div className="card-footer">

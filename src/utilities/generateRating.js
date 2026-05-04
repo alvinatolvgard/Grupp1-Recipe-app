@@ -28,7 +28,7 @@ export function generateRating(id) {
 }
 
 /**
- * Genererar ett antal betyg mellan 20 och 500 baserat på receptets ID.
+ * Genererar ett antal betyg mellan 10 och 200 baserat på receptets ID.
  * Samma recept får alltid samma antal betyg
  * @author Maryam
  * @param {string} id - receptets unika ID från TheMealDB
@@ -36,5 +36,5 @@ export function generateRating(id) {
  */
 export function generateRatingCount(id) {
     const raw = pseudoRandom(id + "count");
-    return Math.floor(20 + raw * 480);
+    return Math.floor(10 + raw * 190);
 }
