@@ -223,6 +223,10 @@
     display: block;
   }
 
+  .header__right {
+    gap: 1rem;
+  }
+
   .header__search-dropdown {
     padding: 1rem;
   }

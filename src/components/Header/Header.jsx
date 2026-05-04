@@ -65,9 +65,6 @@ export default function Header() {
               )}
             </Link>
             <Link to="/about">About</Link>
-            <Link to="/" onClick={() => setMenuOpen(false)}>
-              Home
-            </Link>
 
             {isLoggedIn ? (
               <>
@@ -93,10 +90,6 @@ export default function Header() {
                 Login
               </Link>
             )}
-
-            <Link to="/about" onClick={() => setMenuOpen(false)}>
-              About
-            </Link>
           </nav>
 
           <button
@@ -107,15 +100,15 @@ export default function Header() {
           >
             <Search size={16} />
           </button>
-        </div>
 
-        <button
-          className="header__burger"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-        >
-          {menuOpen ? "✕" : "☰"}
-        </button>
+          <button
+            className="header__burger"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+          >
+            {menuOpen ? "✕" : "☰"}
+          </button>
+        </div>
       </div>
 
       <div
