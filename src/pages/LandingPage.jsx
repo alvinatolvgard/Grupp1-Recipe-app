@@ -1,30 +1,71 @@
-import { useRandomRecipe } from "../api/mealdb";
-import SearchBar from "../components/SearchBar";
-import useSearchStore from "../stores/useSearchStore";
-import RecipeCard from "../components/RecipeCard/RecipeCard";
-import { filterRecipes } from "../utilities/searchHelpers";
-import "./LandingPage.css";
-import { useRecipesByCategory } from "../api/mealdb";
-import { Users, Tag, Star, ArrowRight } from "lucide-react";
+// React & router
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import StarRating from '../components/StarRating/StarRating'
+
+// Icons
+import { Users, Tag, ArrowRight } from "lucide-react";
+
+// API hooks
+import { useRandomRecipe, useRecipesByCategory } from "../api/mealdb";
+
+// Store
+import useSearchStore from "../stores/useSearchStore";
+
+// Components
+import SearchBar from "../components/SearchBar";
+import RecipeCard from "../components/RecipeCard/RecipeCard";
+import StarRating from "../components/StarRating/StarRating";
+
+// Utilities & styles
+import { filterRecipes } from "../utilities/searchHelpers";
+import "./LandingPage.css";
+
+/**
+ * LandingPage component
+ * 
+ * Applikationens startsida. Visar ett slumpmässigt utvalt recept som hero,
+ * en sökfunktion samt ett filtrerbart receptbibliotek hämtat från The MealDB.
+ * 
+ * Funktionalitet:
+ * - Visar ett featured recipe i hero-sektionen (sparas i Zustand så att det inte byts vid re-rendering)
+ * - Låter användaren söka efter recept via SearchBar
+ * - Filtrerar recept per kategori (Breakfast, Dessert, Vegetarian, Vegan)
+ * - Laddar fler recept via "Show More"-knapp
+ * - Fördröjer loading-indikator med 500ms för att undvika flimmer
+ * - Navigerar till receptsida vid klick på "View Recipe"
+ * 
+ * @author Alvina
+ * @component
+ * @returns {JSX.Element | null } Renderar startsidan, en loading/error-text, eller null
+ */
 
 function LandingPage() {
+  // API data
   const { recipe, loading, error } = useRandomRecipe();
+  const { recipes, error: recipesError, loading: recipesLoading, fetchMore, allMealsIds } = useRecipesByCategory(activeFilter);
+
+  // Store - state
   const searchResults = useSearchStore((state) => state.searchResults);
   const activeFilter = useSearchStore((state) => state.activeFilter);
-  const { recipes, error: recipesError, loading: recipesLoading, fetchMore, allMealsIds } = useRecipesByCategory(activeFilter);
-  const setActiveFilter = useSearchStore((state) => state.setActiveFilter);
-  const [hasSearched, setHasSearched] = useState(false);
-  const navigate = useNavigate();
-  const visibleRecipes = hasSearched ? filterRecipes(searchResults, activeFilter) : recipes;;
-  const [showLoading, setShowLoading] = useState(false);
   const featuredRecipe = useSearchStore((state) => state.featuredRecipe);
-  const setFeaturedRecipe = useSearchStore((state) => state.setFeaturedRecipe);
-  const displayedRecipe = featuredRecipe ?? recipe;
-  const resetSearch = useSearchStore((state) => state.resetSearch);
   const searchTerm = useSearchStore((state) => state.searchTerm);
+
+  // Store - actions
+  const setActiveFilter = useSearchStore((state) => state.setActiveFilter);
+  const setFeaturedRecipe = useSearchStore((state) => state.setFeaturedRecipe);
+  const resetSearch = useSearchStore((state) => state.resetSearch);
+
+  // Local state
+  const [hasSearched, setHasSearched] = useState(false);
+  const [showLoading, setShowLoading] = useState(false);
+
+  // Router
+  const navigate = useNavigate();
+
+  // Derived
+  const visibleRecipes = hasSearched ? filterRecipes(searchResults, activeFilter) : recipes;
+  const displayedRecipe = featuredRecipe ?? recipe;
+
 
   // Loading-meddelande visas först efter 500ms
   useEffect(() => {
@@ -42,9 +83,6 @@ function LandingPage() {
     }
 
   }, [recipe, featuredRecipe])
-
-
-  if (recipe) console.log(recipe);
 
   // Visar loading medan receptet hämtas och error vid fel
   if (loading) {
