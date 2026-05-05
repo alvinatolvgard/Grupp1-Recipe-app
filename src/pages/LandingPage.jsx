@@ -42,11 +42,15 @@ import "./LandingPage.css";
 function LandingPage() {
   // API data
   const { recipe, loading, error } = useRandomRecipe();
+
+  // Store - state (måste deklareras innan useRecipesByCategory)
+  const activeFilter = useSearchStore((state) => state.activeFilter);
+
+  // API data (behöver activeFilter)
   const { recipes, error: recipesError, loading: recipesLoading, fetchMore, allMealsIds } = useRecipesByCategory(activeFilter);
 
   // Store - state
   const searchResults = useSearchStore((state) => state.searchResults);
-  const activeFilter = useSearchStore((state) => state.activeFilter);
   const featuredRecipe = useSearchStore((state) => state.featuredRecipe);
   const searchTerm = useSearchStore((state) => state.searchTerm);
 
@@ -110,7 +114,7 @@ function LandingPage() {
               {displayedRecipe.strCategory}
             </span>
             <span className="servings-icon">
-              <Users size={16} /> 
+              <Users size={16} />
               <span className="servings-text">4 servings</span>
             </span>
           </div>
