@@ -24,6 +24,7 @@
 .header-h1 {
     font-family: var(--font-heading);
     margin-bottom: var(--spacing-xl);
+    max-width: 500px;
 }
 
 .header-icons {
