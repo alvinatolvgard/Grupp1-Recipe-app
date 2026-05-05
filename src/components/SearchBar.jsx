@@ -2,6 +2,7 @@ import { useState } from "react"
 import useSearchStore from "../stores/useSearchStore"
 import { handleSearch } from "../utilities/searchHelpers"
 import { useRecipeSearch } from "../api/mealdb"
+import { Search } from "lucide-react";
 
 /**
  * Tar emot användarens sökning och anropar API:et
@@ -22,7 +23,7 @@ function SearchBar({ setHasSearched }) {
         <>
             <div className="searchbar">
                 {/* Sökikon som triggar sökningen vid klick */}
-                <span className="material-symbols-outlined" onClick={() => handleSearch(searchInput, setSearchTerm, setSearchResults, searchRecipes, setError, setHasSearched, setActiveFilter)}>search</span>
+                <span className="search-icon" onClick={() => handleSearch(searchInput, setSearchTerm, setSearchResults, searchRecipes, setError, setHasSearched, setActiveFilter)}><Search size={18} /></span>
                 {/* Inputfält som lyssnar på tangenttryck och uppdaterar searchInput */}
                 <input type="text" placeholder="Search by recipe name, ingredient, or tag..."
                     value={searchInput}
