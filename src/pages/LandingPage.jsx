@@ -23,6 +23,7 @@ function LandingPage() {
   const setFeaturedRecipe = useSearchStore((state) => state.setFeaturedRecipe);
   const displayedRecipe = featuredRecipe ?? recipe;
   const resetSearch = useSearchStore((state) => state.resetSearch);
+  const searchTerm = useSearchStore((state) => state.searchTerm);
 
   // Loading-meddelande visas först efter 500ms
   useEffect(() => {
@@ -150,7 +151,9 @@ function LandingPage() {
         ))}
       </div>
       <div className="recipe-list-header">
-        <h2 className="recipe-category">{activeFilter} recipes</h2>
+        <h2 className="recipe-category">
+          {hasSearched ? `${searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1)} recipes` : `${activeFilter} recipes`}
+        </h2>
         <p className="recipe-count">
           {
             (hasSearched ? filterRecipes(searchResults, activeFilter) : allMealsIds)
