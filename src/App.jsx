@@ -1,5 +1,4 @@
 import { HashRouter, Routes, Route, ScrollRestoration } from "react-router-dom";
-import "./App.css";
 
 // Sidor
 import LandingPage from "./pages/LandingPage";
