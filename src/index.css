@@ -137,3 +137,10 @@ img {
     font-size: 1.5rem;
   }
 }
+
+/*  FOOTER - så footern håller sig ner till botten */
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
