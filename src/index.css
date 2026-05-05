@@ -144,3 +144,7 @@ img {
     display: flex;
     flex-direction: column;
 }
+
+#root > * {
+    width: 100%;
+}
