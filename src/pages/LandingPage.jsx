@@ -18,26 +18,28 @@ function LandingPage() {
   const [hasSearched, setHasSearched] = useState(false);
   const navigate = useNavigate();
   const visibleRecipes = hasSearched ? filterRecipes(searchResults, activeFilter) : recipes;;
-const [showLoading, setShowLoading] = useState(false);
-const featuredRecipe = useSearchStore((state) => state.featuredRecipe);
-const setFeaturedRecipe = useSearchStore((state) => state.setFeaturedRecipe);
-const displayedRecipe = featuredRecipe ?? recipe;
+  const [showLoading, setShowLoading] = useState(false);
+  const featuredRecipe = useSearchStore((state) => state.featuredRecipe);
+  const setFeaturedRecipe = useSearchStore((state) => state.setFeaturedRecipe);
+  const displayedRecipe = featuredRecipe ?? recipe;
+  const resetSearch = useSearchStore((state) => state.resetSearch);
+  const searchTerm = useSearchStore((state) => state.searchTerm);
 
-// Loading-meddelande visas först efter 500ms
-useEffect(() => {
+  // Loading-meddelande visas först efter 500ms
+  useEffect(() => {
     if (recipesLoading) {
-        const timer = setTimeout(() => setShowLoading(true), 500);
-        return () => clearTimeout(timer);
+      const timer = setTimeout(() => setShowLoading(true), 500);
+      return () => clearTimeout(timer);
     } else {
-        setShowLoading(false);
+      setShowLoading(false);
     }
-}, [recipesLoading]);
+  }, [recipesLoading]);
 
   useEffect(() => {
     if (recipe && !featuredRecipe) {
-        setFeaturedRecipe(recipe) 
-    } 
-    
+      setFeaturedRecipe(recipe)
+    }
+
   }, [recipe, featuredRecipe])
 
 
@@ -120,7 +122,11 @@ useEffect(() => {
       <div className="category-btns">
         {hasSearched && (
           <button
-            onClick={() => setActiveFilter("All")}
+            onClick={() => {
+              resetSearch();
+              setHasSearched(false);
+              setActiveFilter("All");
+            }}
             className={
               activeFilter === "All" ? "category-btn active" : "category-btn"
             }
@@ -134,7 +140,11 @@ useEffect(() => {
             className={
               activeFilter === filter ? "category-btn active" : "category-btn"
             }
-            onClick={() => setActiveFilter(filter)}
+            onClick={() => {
+              resetSearch();
+              setHasSearched(false);
+              setActiveFilter(filter);
+            }}
             key={filter}
           >
             {filter}
@@ -142,7 +152,9 @@ useEffect(() => {
         ))}
       </div>
       <div className="recipe-list-header">
-        <h2 className="recipe-category">{activeFilter} recipes</h2>
+        <h2 className="recipe-category">
+          {hasSearched ? `${searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1)} recipes` : `${activeFilter} recipes`}
+        </h2>
         <p className="recipe-count">
           {
             (hasSearched ? filterRecipes(searchResults, activeFilter) : allMealsIds)
@@ -157,8 +169,8 @@ useEffect(() => {
           <p>No recipes found</p>
         )}
 
-        {recipesError && <p>Our recipes seem to have gone missing. The chef is on it!</p>}
-        {showLoading && <p>Preparing your recipes...</p>}
+      {recipesError && <p>Our recipes seem to have gone missing. The chef is on it!</p>}
+      {showLoading && <p>Preparing your recipes...</p>}
       {/* Hämtar receptkort och visar dom på sidan */}
       <div className="recipe-cards">
         {!recipesError && !showLoading && visibleRecipes.map((recipe) => (
@@ -170,8 +182,8 @@ useEffect(() => {
       {/* recipes.length är hur många recept som hämtats, 15, 30, 45 osv */}
       {recipes.length < (allMealsIds ?? []).length && (
         <button
-        className="show-more-btn"
-        onClick={fetchMore}
+          className="show-more-btn"
+          onClick={fetchMore}
         >Show More</button>
       )}
     </>

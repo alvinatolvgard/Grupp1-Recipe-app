@@ -15,6 +15,8 @@
   /* FÄRGER */
   --color-primary: #c85a54; /* Orange accent */
   --color-primary-dark: #d35400;
+  --color-star: #D4A574; /* ifylld stjärna */
+  --color-star-light: #f0dfc7; /* ljusare stjärna */
   --color-secondary: #2c2825; /* Mörk/grå för rubriker */
   --color-background: #faf8f5; /* Ljusbeige bakgrund */
   --color-card: #ffffff; /* Vit färg för kortbakgrunder */

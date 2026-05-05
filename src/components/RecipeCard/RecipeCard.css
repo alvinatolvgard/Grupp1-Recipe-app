@@ -84,25 +84,6 @@
   margin-bottom: 24px;
 }
 
-.stars-list {
-  display: flex;
-  gap: 2px;
-}
-
-.star-filled {
-  color: #d4a373;
-}
-
-.star-empty {
-  color: #d4a373;
-}
-
-.rating-number {
-  color: #999999;
-  font-size: 14px;
-  font-weight: 500;
-}
-
 .card-footer {
   display: flex;
   justify-content: space-between;
