@@ -6,6 +6,7 @@ import useFavoritesStore from '../stores/useFavoritesStore';
 import RecipeCard from '../components/RecipeCard/RecipeCard';
 import getDifficulty from '../utilities/getDifficulty';
 import './RecipeDetailPage.css';
+import StarRating from '../components/StarRating/StarRating';
 
 /**
  * Sida för att visa detaljerad information om ett enskilt recept
@@ -84,6 +85,9 @@ function RecipeDetailPage() {
                         {/* Kategori-badge och receptnamn */}
                         <span className='category-badge'>{recipe.strCategory}</span>
                         <h1>{recipe.strMeal}</h1>
+
+                        {/* Betyg */}
+                        <StarRating recipeId={recipe.idMeal} interactive={true} isLoggedIn={false} />
 
                         {/* Info-kort med ursprungsland, kategori, portioner och svårighetsgrad */}
                         <div className='info-card'>

@@ -1,0 +1,28 @@
+/* Styling för återanvänsbar StarRating-komponent
+Används i RecipeCard, RecipeDetailPage och LandingPage - Maryam */
+
+.star-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stars-list {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+.star-clickable {
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.star-clickable:hover {
+    transform: scale(1.2);
+}
+
+.rating-number {
+    color: var(--color-text);
+    font-size: var(--text-small);
+    font-weight: 500;
+}
