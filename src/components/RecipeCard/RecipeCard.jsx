@@ -71,10 +71,7 @@ const RecipeCard = ({ recipe }) => {
         <div className="card-footer">
           <div className="meta-info">
             <span className="icon-text">
-              <Globe size={16} /> {recipe.strArea}
-            </span>
-            <span className="icon-text">
-              <Users size={16} /> {"4"}
+              <Users size={16} /> {"4 Servings"}
             </span>
           </div>
           <span className="difficulty-tag">
