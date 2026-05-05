@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, ScrollRestoration } from "react-router-dom";
+import { HashRouter, Routes, Route, ScrollRestoration } from "react-router-dom";
 import "./App.css";
 
 // Sidor
@@ -19,7 +19,7 @@ import ScrollToTopButton from "./components/ScrollToTopButton";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Header />
       <Toast />
       <ScrollToTopButton />
@@ -42,7 +42,7 @@ function App() {
       </Routes>
 
       <Footer />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
