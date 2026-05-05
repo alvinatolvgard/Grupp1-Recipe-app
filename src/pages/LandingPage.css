@@ -44,35 +44,12 @@
 
 }
 
-/* ska bort när det finns en funktion för rating */
-
 .rating {
     display: flex;
     align-items: center;
     gap: 8px;
     margin-bottom: 24px;
 }
-
-.star-list {
-    display: flex;
-    gap: 2px;
-}
-
-.filled-star {
-    color: #D4A373;
-}
-
-.empty-star {
-    color: #D4A373;
-}
-
-.rating-numbers {
-    color: #999999;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-/* -------------- */
 
 .view-recipe-btn {
     display: flex;
@@ -131,6 +108,13 @@
     font-family: var(--text-body);
     margin-left: var(--spacing-sm);
     outline: none;
+}
+
+.search-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
 }
 
 /* --Recipecard-sektion-- */
