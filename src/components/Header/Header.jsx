@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom"; //För att sidan inte ska laddas om. Sanel
+import useFavoritesStore from "../../stores/useFavoritesStore";
+import useSearchStore from "../../stores/useSearchStore";
 import useAuthStore from "../../stores/useAuthStore"; // För att hantera logga in och ut. Sanel
 import "./Header.css";
 
@@ -21,14 +23,25 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   // State för att hålla koll på om sökfältets dropdown är öppet eller inte
   const [searchOpen, setSearchOpen] = useState(false);
+  const favoritesCount = useFavoritesStore((state) => state.favorites.length);
+  const setActiveFilter = useSearchStore((state) => state.setActiveFilter);
+  const navigate = useNavigate();
+  const navigateLogin = useNavigate();
+
+  const headerCategories = ["Breakfast", "Dessert", "Vegetarian", "Vegan"];
+
+  const handleHeaderCategoryClick = (category) => {
+    setActiveFilter(category);
+    navigate("/");
+    setSearchOpen(false);
+  };
 
   // State för inloggningsstatus och logout-funktion från store. Sanel
   const { isLoggedIn, logout } = useAuthStore();
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    navigate("/"); // Skickar användaren till startsiden efter utloggning. Sanel
+    navigateLogin("/"); // Skickar användaren till startsiden efter utloggning. Sanel
     setMenuOpen(false); // Stängmobilmenyn om den är öppen. Sanel
   };
 
@@ -42,21 +55,41 @@ export default function Header() {
 
         <div className="header__right">
           <nav className={`header__nav ${menuOpen ? "header__nav--open" : ""}`}>
-            <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+            <Link to="/">Recipes</Link>
+            <Link to="/favourites" className="header__favorites-link">
+              Favourites
+              {favoritesCount > 0 && (
+                <span className="header__favorites-badge">
+                  {favoritesCount}
+                </span>
+              )}
+            </Link>
+            <Link to="/about">About</Link>
 
             {isLoggedIn ? (
               <>
-                <Link to="/profile" onClick={() => setMenuOpen(false)}>My Recipes</Link>
-                <button  onClick={handleLogout} className="header__logout-btn" style={{ background:'none', border: 'none', cursor: 'pointer', font: 'inherit', color: 'inherit' }}
+                <Link to="/profile" onClick={() => setMenuOpen(false)}>
+                  My Recipes
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="header__logout-btn"
+                  style={{
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    font: "inherit",
+                    color: "inherit",
+                  }}
                 >
                   Logout
                 </button>
               </>
             ) : (
-              <Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
+              <Link to="/login" onClick={() => setMenuOpen(false)}>
+                Login
+              </Link>
             )}
-
-            <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
           </nav>
 
           <button
@@ -67,15 +100,15 @@ export default function Header() {
           >
             <Search size={16} />
           </button>
-        </div>
 
-        <button
-          className="header__burger"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-        >
-          {menuOpen ? "✕" : "☰"}
-        </button>
+          <button
+            className="header__burger"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+          >
+            {menuOpen ? "✕" : "☰"}
+          </button>
+        </div>
       </div>
 
       <div
@@ -92,18 +125,16 @@ export default function Header() {
           </form>
           {/* Exempel på kategoriknappar som användaren kan klicka på direkt, här måste vi kanske lägga till vägar senare? */}
           <div className="header__categories">
-            <button type="button" className="header__category">
-              Dessert
-            </button>
-            <button type="button" className="header__category">
-              Dinner
-            </button>
-            <button type="button" className="header__category">
-              Breakfast
-            </button>
-            <button type="button" className="header__category">
-              Lunch
-            </button>
+            {headerCategories.map((category) => (
+              <button
+                key={category}
+                type="button"
+                className="header__category"
+                onClick={() => handleHeaderCategoryClick(category)}
+              >
+                {category}
+              </button>
+            ))}
           </div>
         </div>
       </div>

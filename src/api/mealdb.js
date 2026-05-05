@@ -3,6 +3,7 @@
 // Använder vi ett till API, gör en ny fil med API:ets namn 
 
 import { useEffect, useState } from "react";
+import useSearchStore from "../stores/useSearchStore";
 
 const API_BASE = "https://www.themealdb.com/api/json/v1/1";
 
@@ -87,8 +88,13 @@ export function useRecipesByCategory(category) {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const categoryCache = useSearchStore((state) => state.categoryCache);
+  const setCategoryCache = useSearchStore((state) => state.setCategoryCache);
+  const [allMealsIds, setAllMealsIds] = useState([]);
 
   useEffect(() => {
+    if (category === "All") return;
+    
     const fetchRecipes = async () => {
       setLoading(true);
       setError(null);
@@ -101,17 +107,20 @@ export function useRecipesByCategory(category) {
         }
 
         const data = await response.json();
-          console.log(data.meals[0])
+        setAllMealsIds(data.meals);
+        const first15 = data.meals.slice(0, 15);
+        console.log(data.meals[0])
 
-       const fullRecipes = await Promise.all(
-        data.meals.map(async (meal) => {
-          const res = await fetch(`${API_BASE}/lookup.php?i=${meal.idMeal}`);
-          const detail = await res.json();
-          return detail.meals[0];
-        })
-       );
-       setRecipes(fullRecipes);
-       
+        const fullRecipes = await Promise.all(
+          first15.map(async (meal) => {
+            const res = await fetch(`${API_BASE}/lookup.php?i=${meal.idMeal}`);
+            const detail = await res.json();
+            return detail.meals[0];
+          })
+        );
+        setRecipes(fullRecipes);
+        setCategoryCache(category, fullRecipes, data.meals);
+
       } catch (err) {
         setError(err.message);
       } finally {
@@ -119,10 +128,28 @@ export function useRecipesByCategory(category) {
       }
     };
 
-    fetchRecipes();
+    if (categoryCache[category]) {
+      setRecipes(categoryCache[category].recipes);
+      setAllMealsIds(categoryCache[category].allMealsIds ?? []);
+    } else {
+      fetchRecipes();
+    }
   }, [category]);
 
-  return { recipes, loading, error };
+  const fetchMore = async () => {
+    const nextBatch = allMealsIds.slice(recipes.length, recipes.length + 15);
+    const newRecipes = await Promise.all(
+      nextBatch.map(async (meal) => {
+        const res = await fetch(`${API_BASE}/lookup.php?i=${meal.idMeal}`);
+        const detail = await res.json();
+        return detail.meals[0];
+      })
+    );
+
+    setRecipes([...recipes, ...newRecipes]);
+  }
+
+  return { recipes, loading, error, allMealsIds, fetchMore };
 }
 
 /**

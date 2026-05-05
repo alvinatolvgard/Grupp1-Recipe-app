@@ -26,7 +26,7 @@ function filterRecipes(recipes, activeFilters) {
  * @param {function} setError - uppdaterar felmeddelandet i komponenten
  */
 
-async function handleSearch(searchTerm, setSearchTerm, setSearchResults, searchRecipes, setError, setHasSearched) {
+async function handleSearch(searchTerm, setSearchTerm, setSearchResults, searchRecipes, setError, setHasSearched, setActiveFilter) {
     // Ser till att man inte kan söka på ingenting
     if (!searchTerm.trim()) return;
     try {
@@ -37,6 +37,7 @@ async function handleSearch(searchTerm, setSearchTerm, setSearchResults, searchR
         // Sparar resultatet i storen
         setSearchResults(results);
         setHasSearched(true);
+        setActiveFilter("All");
     } catch (err) {
         // Visar felmeddelande om något går fel
         setError("Something went wrong. Try again!")
