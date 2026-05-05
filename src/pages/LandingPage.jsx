@@ -168,7 +168,7 @@ useEffect(() => {
 
       {/* show more knappen visas om det finns mer än 15 recept att hämtas */}
       {/* recipes.length är hur många recept som hämtats, 15, 30, 45 osv */}
-      {recipes.length < allMealsIds.length && (
+      {recipes.length < (allMealsIds ?? []).length && (
         <button
         className="show-more-btn"
         onClick={fetchMore}
