@@ -8,6 +8,7 @@ import { useRecipesByCategory } from "../api/mealdb";
 import { Users, Tag, Star, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import StarRating from '../components/StarRating/StarRating'
 
 function LandingPage() {
   const { recipe, loading, error } = useRandomRecipe();
@@ -76,24 +77,7 @@ function LandingPage() {
             </span>
           </div>
           <div className="rating">
-            <div className="star-list">
-              <span className="filled-star">
-                <Star size={18} fill="currentColor" />
-              </span>
-              <span className="filled-star">
-                <Star size={18} fill="currentColor" />
-              </span>
-              <span className="filled-star">
-                <Star size={18} fill="currentColor" />
-              </span>
-              <span className="filled-star">
-                <Star size={18} fill="currentColor" />
-              </span>
-              <span className="empty-star">
-                <Star size={18} fill="none" />
-              </span>
-            </div>
-            <span className="rating-numbers">4.2 (24)</span>
+            <StarRating recipeId={recipe.idMeal} />
           </div>
 
           {/* TODO: länka till receptsida när den är klar */}
