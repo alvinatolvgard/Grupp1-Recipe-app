@@ -269,6 +269,7 @@
 
 .more-recipes-grid > * {
     flex: 1;
+    max-width: none;
 }
 
 /* 404 - NOT FOUND */
@@ -336,12 +337,14 @@
     .more-recipes-grid {
         overflow-x: auto;
         flex-wrap: nowrap;
-        padding: 0 var(--spacing-lg) var(--spacing-sm) var(--spacing-lg);
+        padding: 0 var(--spacing-md) var(--spacing-sm) var(--spacing-md);
+        gap: var(--spacing-md);
         -webkit-overflow-scrolling: touch; /* smidigare scroll på iOS */
     }
 
     .more-recipes-grid > * {
-        flex: 0 0 320px;      /* varje kort blir exakt 320px brett och krymper inte */
+        flex: 0 0 300px;      /* varje kort blir exakt 320px brett och krymper inte */
+        max-width: none;
     }
 
     .more-recipes-content {
@@ -431,10 +434,19 @@
     .recipe-hero {
         padding: var(--spacing-xs);
     }
+
+    .more-recipes-grid {
+        padding: 0 var(--spacing-xs) var(--spacing-xs) var(--spacing-xs);
+        gap: var(--spacing-xs);
+    }
 }
 
 @media (max-width: 320px) {
     .info-item p {
         font-size: var(--text-body);
+    }
+
+    .more-recipes-grid {
+        gap: var(--spacing-xxs);
     }
 }

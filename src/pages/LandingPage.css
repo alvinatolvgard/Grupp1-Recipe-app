@@ -86,7 +86,6 @@
     justify-content: center;
     background-color: var(--color-card);
     border: 1px solid var(--color-border);
-
 }
 
 .searchbar {
@@ -136,7 +135,7 @@
     flex-direction: row;
     justify-content: center;
     gap: var(--radius-xl);
-    margin: var(--spacing-2xl);
+    margin: var(--spacing-2xl) auto;
 }
 
 .category-btn.active {
@@ -153,6 +152,7 @@
     margin: 0 auto;
     margin-bottom: var(--spacing-xl);
     margin-top: var(--spacing-3xl);
+    padding: 0 var(--spacing-xl);
 }
 
 
@@ -165,7 +165,6 @@
     max-width: 1300px;
     margin: 0 auto;
     margin-bottom: var(--spacing-2xl);
-
 }
 
 .recipe-cards .recipe-card {
@@ -186,14 +185,22 @@
 }
 
 /* RESPONSIVE */
+@media (max-width: 900px) {
+    .recipe-cards .recipe-card {
+        width: calc(50% - var(--spacing-lg));
+    }
+}
+
 @media (max-width: 768px) {
     .hero {
-        gap: var(--spacing-xl);
+        overflow: hidden;
+        padding: var(--spacing-xl);
     }
 
     .hero-img {
-        height: 400px;
+        height: 350px;
         width: 100%;
+        max-width: 100%;
     }
 
     .searchbar {
@@ -203,16 +210,16 @@
 
     .category-btns {
         flex-wrap: wrap;
+        gap: var(--spacing-sm);
+        margin: var(--spacing-lg) auto;
+        padding: 0 var(--spacing-md);
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .recipe-list-header {
         padding: 0 var(--spacing-lg);
     }
-
-    .recipe-cards .recipe-card {
-        width: calc(50% - var(--spacing-lg));
-    }
-
 }
 
 @media (max-width: 650px) {
@@ -225,9 +232,7 @@
     .hero {
         flex-direction: column;
         padding: var(--spacing-sm);
-        
     }
-
 
     .hero-img {
         height: 400px;
@@ -245,7 +250,7 @@
     }
 
     .featured-recipes {
-        margin-top: var(--spacing-2xl)
+        margin-top: var(--spacing-2xl);
     }
 
     .searchbar {
@@ -254,10 +259,9 @@
     }
 
     .category-btns {
-        margin-top: var(--spacing-2xl);
-        margin: var(--spacing-2xl) var(--spacing-sm);
+        margin: var(--spacing-xl) auto;
+        padding: 0 var(--spacing-md);
     }
-
 
     .recipe-cards .recipe-card {
         width: 100%;
@@ -265,7 +269,6 @@
 }
 
 @media (max-width: 375px) {
-
     .recipe-list-header {
         padding: 0 var(--spacing-sm);
         max-width: 100%;
@@ -277,5 +280,5 @@
 }
 
 @media (max-width: 320px) {
-    
+
 }
