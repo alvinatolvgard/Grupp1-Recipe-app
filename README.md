@@ -135,7 +135,7 @@ src/
 
 - **Sökning** - Sök efter recept efter namn eller ingrediens
 - **Kategorifilter** - Filtrera efter Frukost, Dessert, Vegetarisk, Vegan
-- **Favoriter** - Spara dina favoritrecept (kräver inloggning)
+- **Favoriter** - Spara dina favoritrecept
 - **Autentisering** - Enkel inloggning (mock-implementation)
 - **Responsiv design** - Fungerar på mobil, tablet och desktop
 - **Scroll-to-top** - Knapp för snabb scrolling tillbaks upp
@@ -153,7 +153,7 @@ src/
 - Debouncing på sökning
 - localStorage för att spara autentisering och favoriter
 
-## 👥 Gruppmedlemmar
+## Gruppmedlemmar
 
 - **Ivana** - Favoriter, Header, Root CSS, Toasts
 - **Sanel** - Autentisering, RecipeCard, ProtectedRoute, LoginPage
