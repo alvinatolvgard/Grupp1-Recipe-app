@@ -49,6 +49,7 @@
   --line-height-loose: 1.6;
 
   /*  AVSTÅND  */
+  --spacing-xxs: 0.125rem; /* 2px */
   --spacing-xs: 0.25rem; /* 4px */
   --spacing-sm: 0.5rem; /* 8px */
   --spacing-md: 1rem; /* 16px */
