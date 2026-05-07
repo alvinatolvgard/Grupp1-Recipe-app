@@ -155,7 +155,7 @@ src/
 
 ## Gruppmedlemmar
 
-- **Ivana** - Favoriter, Header, Root CSS, Toasts
+- **Ivana** - Favoriter, Header, Root CSS, Toasts, Figma design
 - **Sanel** - Autentisering, RecipeCard, ProtectedRoute, LoginPage
 - **Maryam** - Stores (Zustand), RecipeDetailPage, API-integration
 - **Alvina** - Sökning, SearchBar, Utilities, ScrollToTopButton
