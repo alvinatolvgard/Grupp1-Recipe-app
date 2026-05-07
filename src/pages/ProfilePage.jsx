@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import useAuthStore from '../stores/useAuthStore';
+import "./ProfilePage.css";
 
 const ProfilePage = () => {
     const user = useAuthStore((state) => state.user);
@@ -7,91 +8,165 @@ const ProfilePage = () => {
     const myRecipes = useAuthStore((state) => state.myRecipes);
     const addMyRecipe = useAuthStore((state) => state.addMyRecipe);
     const deleteMyRecipe = useAuthStore((state) => state.deleteMyRecipe);
+    const updateMyRecipe = useAuthStore((state) => state.updateMyRecipe);
 
     const [title, setTitle] = useState('');
-    const [ingredients, setIngredients] = useState('');
+    const [ingredients, setIngredients] = useState(['']);
+    const [instructions, setInstructions] = useState('');
+    const [editingId, setEditingId] = useState(null);
+
+    const handleIngredientChange = (index, value) => {
+        const newIngredients = [...ingredients];
+        newIngredients[index] = value;
+        setIngredients(newIngredients);
+    };
+
+    const addIngredientField = () => {
+        setIngredients([...ingredients, '']);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!title.trim()) return;
 
-        const newRecipe = {
-            id: Date.now(),
+        const recipeData = {
+            id: editingId || Date.now(),
             title: title,
-            ingredients: ingredients
+            ingredients: ingredients,
+            instructions: instructions
         };
 
-        addMyRecipe(newRecipe);
+        if (editingId) {
+            updateMyRecipe(recipeData);
+            setEditingId(null);
+        } else {
+            addMyRecipe(recipeData);
+        }
+
         setTitle('');
-        setIngredients('');
+        setIngredients(['']);
+        setInstructions('');
     };
 
-    return (
-        <div style={{ padding: 'var(--spacing-xl)', maxWidth: 'var(--container-max-width)', margin: '0 auto' }}>
-            <h1> Welcome, {user?.name}!</h1>
+    const handleEdit = (recipe) => {
+        setEditingId(recipe.id);
+        setTitle(recipe.title);
+        setIngredients(Array.isArray(recipe.ingredients) ? recipe.ingredients : [recipe.ingredients]);
+        setInstructions(recipe.instructions || '');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
-            <section style={{ marginBottom: '40px', backgroundColor: '#f9f9f9', padding: '20px', borderRadius: 'var(--radius-md)' }}>
-                <h2>Create New Recipe</h2>
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+
+    return (
+        <div className="profile-container">
+            <div className="profile-header">
+                <h1> Welcome, {user?.name}!</h1>
+            </div>
+
+            <section className="profile-card">
+                <h2>{editingId ? 'Edit Recipe' : 'Create New Recipe'}</h2>
+                <form onSubmit={handleSubmit} className="recipe-form">
                     <input
+                    className="recipe-input"
                     type="text"
                     placeholder="Recipe Title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                        style={{ padding: '10px', borderRadius: 'var(--radius-sm)', border: '1px solid #ccc' }}
+                    required
                     />
 
-                    <textarea
-                    placeholder="Ingredients (e.g. 2 eggs, flour...)"
-                    value={ingredients}
-                    onChange={(e) => setIngredients(e.target.value)}
-                        style={{ padding: '10px', borderRadius: 'var(--radius-sm)', border: '1px solid #ccc', minHeight: '80px' }}
-                    ></textarea>
+                    <div className="recipe-form-grid">
+                        <div className="ingredients-container">
+                            <label>Ingredients</label>
+                            {ingredients.map((ingredient, index) => (
+                            <input
+                                key={index}
+                                className="recipe-input"
+                                type="text"
+                                placeholder={`Ingredient ${index + 1}`}
+                                value={ingredient}
+                                onChange={(e) => handleIngredientChange(index, e.target.value)}
+                                />
+                        ))}
 
-                    <button type="submit" style={{ padding: '10px', backgroundColor: 'var(--color-secondary)', color: 'white', border: 'none', borderRadius: 'var(--radius-sm)', cursor: 'pointer' }}>
-                        Save Recipe
+                            <button
+                            type="button"
+                            className="add-ingredient-line"
+                            onClick={addIngredientField}
+                            >
+                                + Add Ingredient
+                            </button>
+                        </div>
+
+                        <div className="instructions-container">
+                            <label>Directions</label>
+                            <textarea
+                            className="recipe-textarea"
+                            placeholder="Step by step instructions..."
+                            value={instructions}
+                            onChange={(e) => setInstructions(e.target.value)}
+                            required
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" className="add-recipe-button">
+                        {editingId ? 'Update Recipe' : 'Save Recipe'}
                     </button>
+
+                    {editingId && (
+                        <button
+                        type="button"
+                        className="cancel-button"
+                        onClick={() => {
+                            setEditingId(null);
+                            setTitle('');
+                            setIngredients(['']);
+                            setInstructions('');
+                        }}
+                        >
+                            Cancel Edit
+                        </button>
+                    )}
                 </form>
             </section>
 
-            <section>
+            <section className="my-creations-section">
                 <h2>My Creations</h2>
                 {myRecipes.length === 0 ? (
-                    <p>You haven't created any recipes yet.</p>
+                    <p className="empty-message">You havent created any recipes yet.</p>
                 ) : (
-                    <div style={{ display: 'grid', gap: '15px' }}>
+                    <div className="my-recipes-list">
                         {myRecipes.map((recipe) => (
-                            <div key={recipe.id} style={{ border: '1px solid #eee', padding: '15px', borderRadius: 'var(--radius-sm)', position: 'relative' }}>
+                            <div key={recipe.id} className="recipe-card-mini">
                                 <h3>{recipe.title}</h3>
-                                <p style={{ whiteSpace: 'pre-wrap' }}>{recipe.ingredients}</p>
+                                <p className="recipe-preview">
+                                    {Array.isArray(recipe.ingredients)
+                                    ? recipe.ingredients.filter(i => i.trim() !== "").join(', ')
+                                    : recipe.ingredients}
+                                </p>
+
+                                <div className="recipe-card-actions">
+                                    <button
+                                    className="edit-button"
+                                    onClick={() => handleEdit(recipe)}
+                                    >
+                                        Edit
+                                    </button>
                                 <button
+                                    className="delete-button"
                                     onClick={() => deleteMyRecipe(recipe.id)}
-                                    style={{ color: 'red', border: 'none', background: 'none', cursor: 'pointer', fontSize: '0.8rem' }}
                                     >
                                         Remove
                                     </button>
+                                </div>
                             </div>
                         ))}
                     </div>
                 )}
             </section>
+            </div>
+        );
+    };
 
-            <button
-                onClick={logout}
-                style={{
-                    marginTop: '20px',
-                    padding: '10px 20px',
-                    backgroundColor: 'var(--color-primary)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: 'var(--radius-sm)',
-                    cursor: 'pointer',
-                }}
-            >
-                Logout
-            </button>
-        </div>
-    );
-};
-
-export default ProfilePage;
+        export default ProfilePage;

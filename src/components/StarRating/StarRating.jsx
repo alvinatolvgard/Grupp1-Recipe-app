@@ -5,6 +5,7 @@ import {
   generateRatingCount,
 } from "../../utilities/generateRating";
 import "./StarRating.css";
+import useAuthStore from "../../stores/useAuthStore"; // Import för min auth-store. Sanel
 
 /**
  * Återanvändbar komponent för att visa och sätta betyg på recept.
@@ -15,7 +16,10 @@ import "./StarRating.css";
  * @param {boolean} isLoggedIn - om användaren är inloggad (kopplas till login senare!!)
  * @param {boolean} interactive - om användaren ska kunna klicka på stjärnorna
  */
-const StarRating = ({ recipeId, isLoggedIn = false, interactive = false }) => {
+const StarRating = ({ recipeId, interactive = false }) => {
+
+  // Här hämtar vi inloggningsstatis direkt från min store. Sanel
+  const isLoggedIn =useAuthStore((state) => state.isLoggedIn);
   // Det automatiskt genererade betyget och antalet - som beräknas en gång
   const generatedRating = generateRating(recipeId);
   const ratingCount = generateRatingCount(recipeId);
