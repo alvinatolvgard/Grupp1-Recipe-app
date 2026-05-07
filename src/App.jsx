@@ -21,7 +21,9 @@ function App() {
     <HashRouter>
       <Header />
       <Toast />
-      <ScrollToTopButton />
+      <div>
+        <ScrollToTopButton />
+      </div>
 
       <Routes>
         <Route path="/" element={<LandingPage />} />

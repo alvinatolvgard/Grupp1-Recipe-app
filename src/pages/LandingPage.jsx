@@ -91,8 +91,8 @@ function LandingPage() {
 
   }, [recipe, featuredRecipe])
 
-// Återställer scroll-positionen när användaren navigerar tillbaka till landingpage
-// Väntar till sidan är tillräckligt lång innan den scrollar.
+  // Återställer scroll-positionen när användaren navigerar tillbaka till landingpage
+  // Väntar till sidan är tillräckligt lång innan den scrollar.
   useEffect(() => {
     if (navigationType !== "POP") return; // Om användaren inte kommer via bakåtknappen, gör inget
 
@@ -106,7 +106,7 @@ function LandingPage() {
         clearInterval(interval);
       }
     }, 50);
-    
+
   }, []);
 
   // Visar loading medan receptet hämtas och error vid fel
@@ -228,10 +228,12 @@ function LandingPage() {
       {/* show more knappen visas om det finns mer än 15 recept att hämtas */}
       {/* recipes.length är hur många recept som hämtats, 15, 30, 45 osv */}
       {recipes.length < (allMealsIds ?? []).length && (
-        <button
-          className="show-more-btn"
-          onClick={fetchMore}
-        >Show More</button>
+        <div className="show-more-wrapper">
+          <button
+            className="show-more-btn"
+            onClick={fetchMore}
+          >Show More</button>
+        </div>
       )}
     </>
   );
