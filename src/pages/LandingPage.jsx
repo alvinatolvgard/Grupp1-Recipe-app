@@ -1,6 +1,6 @@
 // React & router
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useNavigationType } from "react-router-dom";
 
 // Icons
 import { Users, Tag, ArrowRight } from "lucide-react";
@@ -53,11 +53,13 @@ function LandingPage() {
   const searchResults = useSearchStore((state) => state.searchResults);
   const featuredRecipe = useSearchStore((state) => state.featuredRecipe);
   const searchTerm = useSearchStore((state) => state.searchTerm);
+  const scrollPosition = useSearchStore((state) => state.scrollPosition);
 
   // Store - actions
   const setActiveFilter = useSearchStore((state) => state.setActiveFilter);
   const setFeaturedRecipe = useSearchStore((state) => state.setFeaturedRecipe);
   const resetSearch = useSearchStore((state) => state.resetSearch);
+  const setScrollPosition = useSearchStore((state) => state.setScrollPosition);
 
   // Local state
   const [hasSearched, setHasSearched] = useState(false);
@@ -65,6 +67,7 @@ function LandingPage() {
 
   // Router
   const navigate = useNavigate();
+  const navigationType = useNavigationType();
 
   // Derived
   const visibleRecipes = hasSearched ? filterRecipes(searchResults, activeFilter) : recipes;
@@ -87,6 +90,24 @@ function LandingPage() {
     }
 
   }, [recipe, featuredRecipe])
+
+// Återställer scroll-positionen när användaren navigerar tillbaka till landingpage
+// Väntar till sidan är tillräckligt lång innan den scrollar.
+  useEffect(() => {
+    if (navigationType !== "POP") return; // Om användaren inte kommer via bakåtknappen, gör inget
+
+    const savedPosition = sessionStorage.getItem("scrollPosition");
+    if (!savedPosition) return;
+
+    const interval = setInterval(() => {
+      if (document.body.scrollHeight >= savedPosition) {
+        window.scrollTo(0, savedPosition);
+        sessionStorage.removeItem("scrollPosition");
+        clearInterval(interval);
+      }
+    }, 50);
+    
+  }, []);
 
   // Visar loading medan receptet hämtas och error vid fel
   if (loading) {
@@ -200,7 +221,7 @@ function LandingPage() {
       {/* Hämtar receptkort och visar dom på sidan */}
       <div className="recipe-cards">
         {!recipesError && !showLoading && visibleRecipes.map((recipe) => (
-          <RecipeCard key={recipe.idMeal} recipe={recipe} />
+          <RecipeCard key={recipe.idMeal} recipe={recipe} setScrollPosition={setScrollPosition} />
         ))}
       </div>
 

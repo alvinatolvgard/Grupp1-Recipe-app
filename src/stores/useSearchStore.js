@@ -39,7 +39,8 @@ const useSearchStore = create((set) => ({
 
     setCategoryCache: (category, recipes, allMealsIds) => set((state) => ({
         categoryCache: { ...state.categoryCache, [category]: {recipes, allMealsIds } }
-    }))
+    })),
+
 }))
 
 export default useSearchStore
