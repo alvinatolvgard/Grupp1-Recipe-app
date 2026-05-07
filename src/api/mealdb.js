@@ -146,7 +146,9 @@ export function useRecipesByCategory(category) {
       })
     );
 
-    setRecipes([...recipes, ...newRecipes]);
+    const updatedRecipes = [...recipes, ...newRecipes];
+    setRecipes(updatedRecipes);
+    setCategoryCache(category, updatedRecipes, allMealsIds);
   }
 
   return { recipes, loading, error, allMealsIds, fetchMore };

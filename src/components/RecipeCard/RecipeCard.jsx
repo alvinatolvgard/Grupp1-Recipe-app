@@ -6,7 +6,7 @@ import getDifficulty from "../../utilities/getDifficulty";
 import useFavoritesStore from "../../stores/useFavoritesStore";
 import StarRating from "../StarRating/StarRating"; // Maryam
 
-const RecipeCard = ({ recipe }) => {
+const RecipeCard = ({ recipe, setScrollPosition }) => {
   const navigate = useNavigate();
   // Hämtar favourites-åtgärder och -status från Zustand store
   const { isFavorite, addFavorite, removeFavorite } = useFavoritesStore();
@@ -14,6 +14,9 @@ const RecipeCard = ({ recipe }) => {
   if (!recipe) return null;
 
   const handleCardClick = () => {
+    // Sparar scroll-position
+    setScrollPosition(window.scrollY);
+    
     navigate(`/recipe/${recipe.idMeal}`);
   };
 
