@@ -140,7 +140,7 @@ function LandingPage() {
             </span>
           </div>
           <div className="rating">
-            <StarRating recipeId={recipe.idMeal} />
+            <StarRating recipeId={displayedRecipe.idMeal} />
           </div>
 
           {/* TODO: länka till receptsida när den är klar */}
