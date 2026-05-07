@@ -11,7 +11,6 @@ const useSearchStore = create((set) => ({
     featuredRecipe: null,
     categoryCache: {},
     searchInput: '',
-    scrollPosition: 0,
 
     // Uppdaterar söktermen
     setSearchTerm: (term) => {
@@ -42,7 +41,6 @@ const useSearchStore = create((set) => ({
         categoryCache: { ...state.categoryCache, [category]: {recipes, allMealsIds } }
     })),
 
-    setScrollPosition: (pos) => set({ scrollPosition: pos }),
 }))
 
 export default useSearchStore

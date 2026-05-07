@@ -1,6 +1,6 @@
 // React & router
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useNavigationType } from "react-router-dom";
 
 // Icons
 import { Users, Tag, ArrowRight } from "lucide-react";
@@ -67,6 +67,7 @@ function LandingPage() {
 
   // Router
   const navigate = useNavigate();
+  const navigationType = useNavigationType();
 
   // Derived
   const visibleRecipes = hasSearched ? filterRecipes(searchResults, activeFilter) : recipes;
@@ -93,14 +94,19 @@ function LandingPage() {
 // Återställer scroll-positionen när användaren navigerar tillbaka till landingpage
 // Väntar till sidan är tillräckligt lång innan den scrollar.
   useEffect(() => {
-    if (scrollPosition === 0) return;
+    if (navigationType !== "POP") return; // Om användaren inte kommer via bakåtknappen, gör inget
+
+    const savedPosition = sessionStorage.getItem("scrollPosition");
+    if (!savedPosition) return;
 
     const interval = setInterval(() => {
-      if (document.body.scrollHeight >= scrollPosition) {
-        window.scrollTo(0, scrollPosition);
+      if (document.body.scrollHeight >= savedPosition) {
+        window.scrollTo(0, savedPosition);
+        sessionStorage.removeItem("scrollPosition");
         clearInterval(interval);
       }
     }, 50);
+    
   }, []);
 
   // Visar loading medan receptet hämtas och error vid fel

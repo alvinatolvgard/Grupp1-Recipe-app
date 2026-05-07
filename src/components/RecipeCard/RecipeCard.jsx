@@ -15,8 +15,8 @@ const RecipeCard = ({ recipe, setScrollPosition }) => {
 
   const handleCardClick = () => {
     // Sparar scroll-position
-    setScrollPosition(window.scrollY);
-    
+    sessionStorage.setItem("scrollPosition", window.scrollY);
+
     navigate(`/recipe/${recipe.idMeal}`);
   };
 
