@@ -108,7 +108,7 @@
   line-height: 1.6;
 }
 
-/* Responsive Design */
+/* Responsivitet */
 @media (max-width: 768px) {
   .search-results-page {
     padding: var(--spacing-xl) var(--spacing-md);
