@@ -23,6 +23,8 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   // State för att hålla koll på om sökfältets dropdown är öppet eller inte
   const [searchOpen, setSearchOpen] = useState(false);
+  // State för sökinput
+  const [headerSearchInput, setHeaderSearchInput] = useState("");
   const favoritesCount = useFavoritesStore((state) => state.favorites.length);
   const setActiveFilter = useSearchStore((state) => state.setActiveFilter);
   const navigate = useNavigate();
@@ -34,6 +36,18 @@ export default function Header() {
     setActiveFilter(category);
     navigate("/");
     setSearchOpen(false);
+  };
+
+  // Hanterar sökning från header
+  const handleHeaderSearch = (e) => {
+    e.preventDefault();
+    if (headerSearchInput.trim()) {
+      navigate(
+        `/search-results?q=${encodeURIComponent(headerSearchInput.trim())}`,
+      );
+      setSearchOpen(false);
+      setHeaderSearchInput("");
+    }
   };
 
   // State för inloggningsstatus och logout-funktion från store. Sanel
@@ -115,12 +129,14 @@ export default function Header() {
         className={`header__search-dropdown ${searchOpen ? "header__search-dropdown--open" : ""}`}
       >
         <div className="header__search-dropdown-inner">
-          <form className="header__search-form">
+          <form className="header__search-form" onSubmit={handleHeaderSearch}>
             <input
               type="text"
               placeholder="Search by recipe name, ingredient, or tag..."
               className="header__search-input"
               autoFocus={searchOpen}
+              value={headerSearchInput}
+              onChange={(e) => setHeaderSearchInput(e.target.value)}
             />
           </form>
           {/* Exempel på kategoriknappar som användaren kan klicka på direkt, här måste vi kanske lägga till vägar senare? */}

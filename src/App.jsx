@@ -6,8 +6,8 @@ import RecipeDetailPage from "./pages/RecipeDetailPage";
 import Favourites from "./pages/Favourites";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
-import About from './pages/About';
-
+import About from "./pages/About";
+import SearchResultsPage from "./pages/SearchResultsPage";
 
 // Komponenter
 import Header from "./components/Header/Header";
@@ -30,7 +30,8 @@ function App() {
         <Route path="/recipe/:id" element={<RecipeDetailPage />} />
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path='/about' element={<About />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/search-results" element={<SearchResultsPage />} />
 
         <Route
           path="/profile"
