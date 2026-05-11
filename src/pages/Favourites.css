@@ -54,9 +54,9 @@
 
 /* Container för recipe-kort */
 .favourites-container {
-  max-width: var(--container-max-width);
+  max-width: 1350px;
   margin: 0 auto;
-  padding: var(--spacing-3xl);
+  padding: var(--spacing-3xl) var(--spacing-xl);
 }
 
 /* Receptantal */
@@ -64,7 +64,7 @@
   font-family: var(--font-body);
   font-size: var(--text-small);
   color: var(--color-text);
-  margin-bottom: var(--spacing-2xl);
+  margin: 0 0 var(--spacing-2xl) 0;
   text-transform: capitalize;
 }
 
@@ -75,8 +75,9 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--spacing-lg);
-  max-width: 1300px;
+  max-width: 1350px;
   margin: 0 auto;
+  margin-bottom: var(--spacing-2xl);
 }
 
 .favourites-grid .recipe-card {

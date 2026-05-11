@@ -8,7 +8,8 @@
   padding: 1rem 1.25rem;
   border-radius: 1.5rem;
   font-family: var(--font-body);
-  width: min(360px, calc(100vw - 2rem));
+  width: min(360px, calc(100vw - 2rem)) !important;
+  left: auto !important;
   box-shadow: var(--shadow-lg);
   border: 1px solid rgba(44, 40, 37, 0.08);
   display: flex;
