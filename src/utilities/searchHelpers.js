@@ -1,8 +1,10 @@
+import useSearchStore from "../stores/useSearchStore";
+
 /**
  * Filtrerar en lista med recept baserat på kategori
  * @author Alvina
  * @param {Array} recipes - listan med recept från API:t
- * @param {string} activeFilters - valt kategori, tex "dinner" eller "all"
+ * @param {string} activeFilters - valt kategori, tex "dinner" eller "All"
  * @returns filtrerad lista med recept
  */
 
@@ -26,7 +28,8 @@ function filterRecipes(recipes, activeFilters) {
  * @param {function} setError - uppdaterar felmeddelandet i komponenten
  */
 
-async function handleSearch(searchTerm, setSearchTerm, setSearchResults, searchRecipes, setError, setHasSearched, setActiveFilter) {
+async function handleSearch(searchTerm, searchRecipes, setError) {
+    const { setSearchTerm, setSearchResults, setActiveFilter, setHasSearched } = useSearchStore.getState();
     // Ser till att man inte kan söka på ingenting
     if (!searchTerm.trim()) return;
     try {
@@ -40,6 +43,7 @@ async function handleSearch(searchTerm, setSearchTerm, setSearchResults, searchR
         setActiveFilter("All");
     } catch (err) {
         // Visar felmeddelande om något går fel
+        console.log(err)
         setError("Something went wrong. Try again!")
     }
 }
