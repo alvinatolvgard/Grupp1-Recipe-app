@@ -6,13 +6,13 @@ import { create } from "zustand";
  */
 const useSearchStore = create((set) => ({
     searchTerm: '',
+    hasSearched: false,
     activeFilter: 'Breakfast',
     searchResults: [],
     featuredRecipe: null,
     categoryCache: {},
-    searchInput: '',
 
-    // Uppdaterar söktermen
+    // Uppdaterar söktermen som skickas till API:et
     setSearchTerm: (term) => {
         set({ searchTerm: term })
     },
@@ -27,16 +27,17 @@ const useSearchStore = create((set) => ({
         set({ searchResults: results })
     },
 
-    setSearchInput: (input) => set({ searchInput: input }),
+    // Markerar om en sökning har genomförts - styr vilket UI som visas
+    setHasSearched: (bool) => set({ hasSearched: bool }),
 
-    // Återställer sökning, filter och resultat till ursprungsläget
+    // Återställer sökning, filter resultat och sökstatus till ursprungsläget
     resetSearch: () => {
-        set({ searchTerm: '', activeFilter: 'Breakfast', searchResults: [], searchInput: '' })
+        set({ searchTerm: '', activeFilter: 'Breakfast', searchResults: [], hasSearched: false })
     },
 
     setFeaturedRecipe: (recipe) => set({ featuredRecipe: recipe }),
 
-
+    // Cachar recept per kategori för att undvika onödiga API-anrop
     setCategoryCache: (category, recipes, allMealsIds) => set((state) => ({
         categoryCache: { ...state.categoryCache, [category]: {recipes, allMealsIds } }
     })),
