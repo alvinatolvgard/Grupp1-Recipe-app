@@ -157,9 +157,9 @@ src/
 
 - **Ivana** - Favoriter, Header, Root CSS, Toasts, Figma design
 - **Sanel** - Autentisering, RecipeCard, ProtectedRoute, LoginPage
-- **Maryam** - Stores (Zustand), RecipeDetailPage, API-integration
-- **Alvina** - Sökning, SearchBar, Utilities, ScrollToTopButton
-- **Albrim** - About, Footer
+- **Maryam** - Stores (Zustand), RecipeDetailPage, getDifficulty, StarRating, API-integration
+- **Alvina** - Sökning, SearchBar, ScrollToTopButton, LandingPage, API-integration
+- **Albrim** - About, Footer, API-integration
 
 _Alla medlemmar har bidragit med commits och kodgranskning._
 
@@ -174,7 +174,11 @@ _Alla medlemmar har bidragit med commits och kodgranskning._
 
 ### Utmaningar
 
-- [Här får vi fylla på senare!]
+- **API-anrop och prestanda** – Initialt gjordes ett anrop per receptkort vilket 
+  resulterade i ett stort antal requests. Löstes genom att hämta 15 recept åt gången.
+- **API-begränsningar** – TheMealDB saknade viss information vi ville visa. 
+  Två exempel på workarounds: svårighetsgrad beräknades utifrån antal 
+  ingredienser och portioner hårdkodades där API:et saknade data.
 
 ### Framtida Förbättringar
 
