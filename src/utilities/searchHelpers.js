@@ -22,8 +22,6 @@ function filterRecipes(recipes, activeFilters) {
  * Hanterar sökning av recept och sparar resultatet i storen
  * @author Alvina
  * @param {string} searchTerm - det användaren skrivit i sökfältet
- * @param {function} setSearchTerm - sparar söktermen i Zustand-storen
- * @param {function} setSearchResults - sparar sökresultaten i Zustand-storen
  * @param {function} searchRecipes - anropar API:t och retunerar matchande recept
  * @param {function} setError - uppdaterar felmeddelandet i komponenten
  */
@@ -43,7 +41,6 @@ async function handleSearch(searchTerm, searchRecipes, setError) {
         setActiveFilter("All");
     } catch (err) {
         // Visar felmeddelande om något går fel
-        console.log(err)
         setError("Something went wrong. Try again!")
     }
 }
