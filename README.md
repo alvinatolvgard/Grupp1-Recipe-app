@@ -186,6 +186,7 @@ _Alla medlemmar har bidragit med commits och kodgranskning._
 - [ ] Lägg till recept-rekommendationer baserat på favoriter
 - [ ] Lägg till print-stylesheet för bättre utskrift
 - [ ] Implementera recept-favoriter synchronisering med backend
+- [ ] Ingrediensrader kan läggas till och tas bort dynamiskt i formuläret under Mina Recept
 
 ## Anteckningar
 
