@@ -62,7 +62,7 @@ function LandingPage() {
   const setScrollPosition = useSearchStore((state) => state.setScrollPosition);
 
   // Local state
-  const [hasSearched, setHasSearched] = useState(false);
+  const hasSearched = useSearchStore((state) => state.hasSearched);
   const [showLoading, setShowLoading] = useState(false);
 
   // Router
@@ -161,7 +161,7 @@ function LandingPage() {
 
       {/* --Search-sektion-- */}
       <div className="search-function">
-        <SearchBar setHasSearched={setHasSearched} />
+        <SearchBar />
       </div>
 
       {/* --Recipecard-sektion-- */}
@@ -171,8 +171,6 @@ function LandingPage() {
           <button
             onClick={() => {
               resetSearch();
-              setHasSearched(false);
-              setActiveFilter("All");
             }}
             className={
               activeFilter === "All" ? "category-btn active" : "category-btn"
@@ -189,7 +187,6 @@ function LandingPage() {
             }
             onClick={() => {
               resetSearch();
-              setHasSearched(false);
               setActiveFilter(filter);
             }}
             key={filter}
