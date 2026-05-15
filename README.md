@@ -1,5 +1,7 @@
 # CodeCuisine 🍳
 
+[Live Demo] https://alvinatolvgard.github.io/Grupp1-Recipe-app/
+
 CodeCuisine är en React-applikation för att utforska, söka efter och spara recept. Användare kan bläddra genom recept efter kategorier, söka efter specifika rätter, och spara sina favoriter.
 
 ## Projektbeskrivning
