@@ -75,10 +75,10 @@ function RecipeDetailPage() {
                 <section className='recipe-hero'>
                     <div className='hero-img-wrapper'>
                         <img
-                        src={recipe.strMealThumb}
-                        alt={recipe.strMeal}
-                        onError={(e) => e.target.src = 'https://placehold.co/400x450?text=Image+serving+error+–+chef+is+debugging'}
-                    />
+                            src={recipe.strMealThumb}
+                            alt={recipe.strMeal}
+                            onError={(e) => e.target.src = 'https://placehold.co/400x450?text=Image+serving+error+–+chef+is+debugging'}
+                        />
                     </div>
             
                     <div className='hero-info'>
@@ -150,7 +150,7 @@ function RecipeDetailPage() {
                                         )}
                                     </div>
 
-                                    {/* Print-knapp */}
+                                {/* Print-knapp */}
                                 <button className='print-button' onClick={() => window.print()}>Print</button>
                             </div>
                         </div>
