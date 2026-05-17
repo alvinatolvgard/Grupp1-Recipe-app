@@ -143,7 +143,6 @@ function LandingPage() {
             <StarRating recipeId={displayedRecipe.idMeal} />
           </div>
 
-          {/* TODO: länka till receptsida när den är klar */}
           <button
             className="view-recipe-btn"
             onClick={() => navigate(`/recipe/${displayedRecipe.idMeal}`)}

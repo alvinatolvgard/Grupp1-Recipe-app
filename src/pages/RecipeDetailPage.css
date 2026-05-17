@@ -343,7 +343,7 @@
     }
 
     .more-recipes-grid > * {
-        flex: 0 0 300px;      /* varje kort blir exakt 320px brett och krymper inte */
+        flex: 0 0 300px;      /* varje kort blir exakt 300px brett och krymper inte */
         max-width: none;
     }
 
